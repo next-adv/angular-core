@@ -1,38 +1,47 @@
 import {Injectable} from '@angular/core';
-import {NavController, Platform} from '@ionic/angular';
-import {UserService} from '../../../services/user.service';
-import {UtilsService} from '../../../services/utils/utils.service';
-import {NotificationService} from '../../../services/notification/notification.service';
-import {NavService} from '../../../services/nav/nav.service';
-import Constants from '../../Constants';
+import {NavController} from '@ionic/angular';
+import {HttpClient} from '@angular/common/http';
+import {Storage} from '@ionic/storage';
 
-@Injectable()
-export class AuthApple {
+import {NavService} from '../nav.service';
+import { UIHelperService } from '../helpers/ui-helper.service';
+
+@Injectable({
+    providedIn: 'root'
+})
+export class AuthAppleService {
+
+    token: string;
+    user: any;
 
     constructor(
-        private platform: Platform,
-        private utils: UtilsService,
-        private userService: UserService,
-        private notificationService: NotificationService,
         private navService: NavService,
-        private navCtrl: NavController
+        private navCtrl: NavController,
+        private uiHelper: UIHelperService,
+        private httpClient: HttpClient,
+        private storage: Storage,
     ) {
     }
 
+    public getUser() {
+        return this.httpClient.post('/wp-api/wp/v2/users/me', '');
+    }
+
     public login() {
-        Constants.token = null;
+        this.token = undefined;
         // @ts-ignore
         window.cordova.plugins.SignInWithApple.signin(
             {requestedScopes: [0, 1]},
             async succ => {
                 console.log('SignInWithApple', JSON.stringify(succ));
 
-                await this.utils.showLoader();
-                this.userService.signInWithApple({appleID: succ.user}).toPromise().then(async (resp: any) => {
+                await this.uiHelper.showLoader();
+                this.httpClient.post('/wp-api/v1/verifyAppleID', {appleID: succ.user})
+                .subscribe(async (resp: any) => {
                     console.log('signInWithApple', JSON.stringify(resp));
                     if (resp) {
                         if (resp.isNew) {
-                            this.utils.dismissLoader();
+                            this.uiHelper.dismissLoader();
                             this.navService.data = {
                                 appleID: succ.user,
                                 first_name: succ.fullName.familyName,
@@ -42,31 +51,31 @@ export class AuthApple {
                             };
                             this.navCtrl.navigateForward('signup');
                         } else {
-                            Constants.token = resp.token;
-                            this.userService.saveTokenInStorage();
-                            await this.userService.getUser().toPromise().then(res2 => {
-                                this.utils.dismissLoader();
+                            this.token = resp.token;
+                            this.storage.set('token', this.token);
+                            await this.getUser().toPromise().then(res2 => {
+                                this.uiHelper.dismissLoader();
                                 if (res2) {
-                                    this.userService.user = res2;
+                                    this.user = res2;
                                     this.navCtrl.navigateRoot('tabs');
                                 }
                             }, err => {
-                                this.utils.dismissLoader();
-                                this.utils.showToast();
+                                this.uiHelper.dismissLoader();
+                                this.uiHelper.showToast();
                             });
                         }
                     } else {
-                        this.utils.showToast();
+                        this.uiHelper.showToast();
                     }
                 }, err => {
-                    this.utils.dismissLoader();
-                    this.utils.showToast();
+                    this.uiHelper.dismissLoader();
+                    this.uiHelper.showToast();
                     console.log('signInWithApple_err', JSON.stringify(err));
                 });
             },
             err => {
-                this.utils.dismissLoader();
-                this.utils.showToast();
+                this.uiHelper.dismissLoader();
+                this.uiHelper.showToast();
             }
         );
     }
