@@ -1,0 +1,36 @@
+<div class="accordion ion-margin-bottom" (click)="toggleLayout()">
+    <ion-item lines="none" class="transparent not-exploded">
+        <div slot="start">
+            <p class="ion-no-margin" id="category">{{data.category}}</p>
+            <p class="ion-no-margin" id="style">{{data.length}} {{data.style}}</p>
+        </div>
+        <ion-icon slot="end" [name]="exploded ? 'arrow-up' : 'arrow-down'" mode="ios" color="secondary"></ion-icon>
+    </ion-item>
+    <div *ngIf="exploded" class="ion-margin-start ion-margin-end">
+        <div *ngFor="let line of data.lines | keyvalue">
+            <p class="battery ion-no-margin">{{'BATTERY' | translate}} #{{line.key}}</p>
+            <ion-grid id="header">
+                <ion-row>
+                    <ion-col size="1"></ion-col>
+                    <ion-col size="5"><p class="ion-no-margin">{{'NAME' | translate}}</p></ion-col>
+                    <ion-col size="2"><p class="ion-no-margin">{{'YEAR' | translate}}</p></ion-col>
+                    <ion-col size="2"><p class="ion-no-margin">{{'NATIONALITY_' | translate}}</p></ion-col>
+                    <ion-col size="2"><p class="ion-no-margin">{{'TIME' | translate}}</p></ion-col>
+                </ion-row>
+            </ion-grid>
+            <ion-grid id="data">
+                <ion-row *ngFor="let item of line.value; let i = index">
+                    <ion-col size="1"><p class="ion-no-margin" id="index">{{i + 1}}</p></ion-col>
+                    <ion-col size="5">
+                        <p class="ion-no-margin name"><span
+                                *ngIf="item.athlete.firstname">{{item.athlete.firstname | slice: 0 : 1}}. </span><span
+                                id="last_name" [innerHTML]="item.athlete.lastname"></span></p>
+                    </ion-col>
+                    <ion-col size="2"><p class="ion-no-margin">{{item.athlete.year}}</p></ion-col>
+                    <ion-col size="2"><p class="ion-no-margin">{{item.athlete.nat}}</p></ion-col>
+                    <ion-col size="2"><p class="ion-no-margin">{{item.time}}</p></ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </div>
+</div>

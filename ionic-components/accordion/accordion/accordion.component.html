@@ -1,0 +1,30 @@
+<div class="accordion ion-margin-bottom" (click)="toggleLayout()">
+    <ion-item lines="none" class="transparent">
+        <div slot="start">
+            <p class="ion-no-margin" id="category">{{data.category}}</p>
+            <p class="ion-no-margin" id="style">{{data.length}} {{data.style}}</p>
+        </div>
+        <ion-icon slot="end" [name]="exploded ? 'arrow-up' : 'arrow-down'" mode="ios" color="secondary"></ion-icon>
+    </ion-item>
+    <div *ngIf="exploded" class="ion-margin-start ion-margin-end">
+        <ion-grid id="header">
+            <ion-row>
+                <ion-col size="1"></ion-col>
+                <ion-col size="5"><p class="ion-no-margin">{{'NAME' | translate}}</p></ion-col>
+                <ion-col size="2"><p class="ion-no-margin">{{'YEAR' | translate}}</p></ion-col>
+                <ion-col size="2"><p class="ion-no-margin">{{'NATIONALITY_' | translate}}</p></ion-col>
+                <ion-col size="2"><p class="ion-no-margin">{{'TIME' | translate}}</p></ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-grid id="data">
+            <ion-row *ngFor="let item of data.times; let i = index">
+                <ion-col size="1"><p class="ion-no-margin" id="index">{{i}}</p></ion-col>
+                <ion-col size="5"><span id="first_name">{{item.name | slice: 0 : 1}}</span>. <span
+                        id="last_name">{{item.lastname}}</span></ion-col>
+                <ion-col size="2"><p class="ion-no-margin">{{item.year}}</p></ion-col>
+                <ion-col size="2"><p class="ion-no-margin">{{item.nat}}</p></ion-col>
+                <ion-col size="2"><p class="ion-no-margin">{{item.time / 1000}}</p></ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</div>

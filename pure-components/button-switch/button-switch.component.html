@@ -1,0 +1,10 @@
+<div class="ButtonSwitch">
+    <button class="ButtonSwitch__btn" [ngClass]="{active: this.options[0] === this.selected}"
+            (click)="click(this.options[0])">
+        {{this.options[0]}}
+    </button>
+    <button class="ButtonSwitch__btn" [ngClass]="{active: this.options[1] === this.selected}"
+            (click)="click(this.options[1])">
+        {{this.options[1]}}
+    </button>
+</div>

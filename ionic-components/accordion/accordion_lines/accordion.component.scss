@@ -1,0 +1,101 @@
+#category {
+  font-family: Muli-Regular;
+  font-size: 14px;
+  color: #8C8C8C;
+  letter-spacing: 0;
+}
+
+#style {
+  font-family: Muli-Bold;
+  font-size: 18px;
+  color: #40375A;
+  letter-spacing: 0;
+}
+
+.accordion {
+  background: #FFFFFF;
+  box-shadow: 0 1px 11px 0 rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+}
+
+#header {
+  background: rgba(206, 206, 206, 0.13);
+  border-radius: 11px;
+}
+
+ion-grid ion-row ion-col p {
+  opacity: 0.6;
+  font-family: Muli-Regular;
+  font-size: 12px;
+  color: #40375A;
+  letter-spacing: 0;
+}
+
+#data {
+  p {
+    line-height: 18px;
+  }
+
+  #index {
+    opacity: 0.36;
+    font-family: Muli-Bold;
+    font-size: 14px;
+    color: #40375A;
+    letter-spacing: 0;
+    text-align: center;
+  }
+
+  #first_name {
+    font-family: Muli-Regular;
+    font-size: 14px;
+    color: #40375A;
+    letter-spacing: 0;
+  }
+
+  .name {
+    text-transform: uppercase;
+    font-family: Muli-Regular;
+    color: #40375A;
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  #last_name {
+    font-family: Muli-Bold;
+    font-size: 14px;
+    color: #1C1900;
+    letter-spacing: 0;
+    line-height: 18px;
+  }
+
+  #year,
+  #nat {
+    opacity: 0.51;
+    font-family: Muli-Regular;
+    font-size: 14px;
+    color: #40375A;
+    letter-spacing: 0;
+    text-align: center;
+  }
+
+  #time {
+    font-family: Muli-Bold;
+    font-size: 14px;
+    color: #40375A;
+    letter-spacing: 0;
+    text-align: right;
+  }
+}
+
+.battery {
+  font-family: Muli-Regular;
+  font-size: 14px;
+  color: #8C8C8C;
+  letter-spacing: 0;
+  margin-bottom: 6px;
+}
+
+.not-exploded {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
