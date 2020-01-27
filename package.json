@@ -15,5 +15,18 @@
   "bugs": {
     "url": "https://github.com/next-adv/angular-core/issues"
   },
-  "homepage": "https://github.com/next-adv/angular-core#readme"
+  "homepage": "https://github.com/next-adv/angular-core#readme",
+  "dependencies": {
+    "@angular/common": "^8.2.14",
+    "@angular/core": "^8.2.14",
+    "@angular/forms": "^8.2.14",
+    "@angular/router": "^8.2.14",
+    "@ionic-native/device": "^5.20.0",
+    "@ionic-native/facebook": "^5.20.0",
+    "@ionic-native/in-app-browser": "^5.20.0",
+    "@ionic/angular": "^4.11.10",
+    "@ionic/storage": "^2.2.0",
+    "@ngx-translate/core": "^11.0.1",
+    "rxjs": "^6.5.4"
+  }
 }

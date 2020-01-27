@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Device} from '@ionic-native/device/ngx';
 
-import Constants from '../../angular-core/Constants';
-
 interface IDevice {
     regId: string;
     uuid: string;
@@ -23,7 +21,7 @@ export class DeviceHelperService {
         private device: Device
     ) {}
 
-    getDeviceObject(registrationId?: string): IDevice {
+    getDeviceObject(registrationId?: string, locale?: string): IDevice {
         return {
             regId: registrationId,
             uuid: this.device.uuid,
@@ -32,7 +30,7 @@ export class DeviceHelperService {
             manufacturer: this.device.manufacturer,
             model: this.device.model,
             serial: this.device.serial,
-            locale: Constants.locale
+            locale: locale
         };
     }
 }

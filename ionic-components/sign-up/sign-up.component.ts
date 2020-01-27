@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {NavService} from '../../../services/nav/nav.service';
+import {NavService} from '../../services/nav.service';
 import {NavController} from '@ionic/angular';
 import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
 

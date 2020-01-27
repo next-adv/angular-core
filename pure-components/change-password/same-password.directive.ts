@@ -1,5 +1,5 @@
 
-import { ValidatorFn, AbstractControl, ValidationErrors} from './node_modules/@angular/forms';
+import { ValidatorFn, AbstractControl, ValidationErrors} from '@angular/forms';
 
 export function SamePasswordValidator(newPwdControl: string, confirmPwdControl: string): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {

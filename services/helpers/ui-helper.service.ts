@@ -3,7 +3,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {LoadingController, ToastController} from '@ionic/angular';
 
 @Injectable({
-    prvidedIn: 'root'
+    providedIn: 'root'
 })
 export class UIHelperService {
 
