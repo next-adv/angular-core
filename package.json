@@ -1,5 +1,5 @@
 {
-  "name": "angular-core",
+  "name": "@next-adv/angular-core",
   "version": "1.0.0",
   "description": "angular/ionic common codes library from mobile/desktop app",
   "main": "index.js",
