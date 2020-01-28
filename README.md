@@ -1,8 +1,10 @@
 # AngularCore
 
+A set of common libraries used in angular and ionic/angular projects.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
 
-# Usage of this library in development
+# Usage of this library in developmentng build
 1. Clone the library in your workspace, NOT inside your main project!
 2. In the library folder run `npm link` inside the '/dist/PACKAGE_NAME' folder
 3. In your main project root folder run `npm link PACKAGE_NAME`
