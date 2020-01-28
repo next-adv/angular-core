@@ -19,7 +19,7 @@ export class AuthPlainService {
         private translate: TranslateService,
         private httpClient: HttpClient,
         //private uiHelper: UIHelperService,
-        //private storage: Storage,
+        private storage: Storage,
     ) {
     }
 
@@ -40,7 +40,7 @@ export class AuthPlainService {
                 tap((data: any) => {
                     this.user.email = data.user_email;
                     this.token = data.token;
-                    //this.storage.set('token', this.token);
+                    this.storage.set('token', this.token);
                     return data;
                 })
             );
