@@ -30,7 +30,7 @@ export class DeviceHelperService {
             manufacturer: this.device.manufacturer,
             model: this.device.model,
             serial: this.device.serial,
-            locale: locale
+            locale
         };
     }
 }
