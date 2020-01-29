@@ -11,11 +11,8 @@
       "es2018"
     ],
     "paths": {
-        "@ionic-native/*": [
-            "./node_modules/@ionic-native/*"
-        ],
-        "@ionic/*": [
-            "./node_modules/@ionic/*"
+        "@ionic/storage": [
+            "node_modules/@ionic/storage"
         ],
         "core": [
             "dist/core"

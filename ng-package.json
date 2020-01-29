@@ -2,6 +2,16 @@
   "$schema": "../../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../../dist/next-adv/angular-core",
   "lib": {
-    "entryFile": "src/public-api.ts"
+    "entryFile": "src/public-api.ts",
+    "umdModuleIds": {
+      "@ionic/storage": "@ionic/storage",
+      "@ngx-translate/core": "@ngx-translate/core",
+      "@ionic/angular": "@ionic/angular",
+      "@ionic-native/in-app-browser/ngx": "@ionic-native/in-app-browser/ngx",
+      "@ionic-native/facebook/ngx": "@ionic-native/facebook/ngx",
+      "@ionic-native/facebook/ngx/index": "@ionic-native/facebook/ngx/index",
+      "@ionic-native/device/ngx": "@ionic-native/device/ngx",
+      "@ionic-native/device/ngx/index": "@ionic-native/device/ngx/index"
+    }
   }
 }

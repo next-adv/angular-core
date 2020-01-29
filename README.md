@@ -8,16 +8,15 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ### Setup
 
 1. Clone the library in your workspace, **NOT inside your main project!**
-2. In the library folder run `npm i`, then `ng build`
-3. In the library */dist/company* run `npm link @company/PACKAGE_NAME`
-    e.g. dist/@next-adv/ -> npm link @next-adv/angular-core
+2. In the library root folder run `npm i`, then `ng build @COMPANY/PACKAGE_NAME` (e.g. '@next-adv/package')
+3. In the library */dist/company/PACKAGE_NAME* run `npm link`. This will create a scoped package (e.g. '@next-adv/package')
 4. In your main project root folder run `npm link @COMPANY/PACKAGE_NAME`
 5. In your main project *angular.json* set *projects.app.architect.build.options.preserveSymlinks=true*
 Now the main project will be sym-linked to the library
 
 ### Run
 
-1. In the library folder run `ng build --watch`
+1. In the library root folder run `ng build  @COMPANY/PACKAGE_NAME --watch`
 2. In your main project root folder run `ng serve` or `ionic serve`, depending on which framework you are using
 When you make some change in the library, the main project will naturally reaload itself!
 
@@ -28,7 +27,7 @@ If your developments in the library are terminated and **you want to publish the
 1. Version your software by using `npm version patch|minor|major`. This will create a *tag* in your git repo
 2. Run `npm publish`
 3. Run your install and build task as usual
-If you miss this, production software won't get the updated library!
+4. Enjoy
 
 ## Code scaffolding
 
