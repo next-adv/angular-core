@@ -22,6 +22,12 @@
       "@angular/*": [
         "./node_modules/@angular/*"
       ],
+      "@ionic-native/*": [
+        "./node_modules/@ionic-native/*"
+      ],
+      "@ionic/*": [
+        "./node_modules/@ionic/*"
+      ],
       "core": [
         "dist/core"
       ],
