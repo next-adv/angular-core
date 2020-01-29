@@ -1,6 +1,6 @@
 {
   "name": "@next-adv/angular-core",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "author": "Riccardo Coco, Giuseppe Matrella",
   "scripts": {
     "ng": "ng",
