@@ -6,9 +6,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 # Usage of this library in developmentng build
 1. Clone the library in your workspace, NOT inside your main project!
-2. In the library folder run `npm link` inside the '/dist/PACKAGE_NAME' folder
-3. In your main project root folder run `npm link PACKAGE_NAME`
-4. In the library folder run `ng build --watch`
+2. In the library folder run `ng build --watch`
+3. In the library folder run `npm link` inside the '/dist/PACKAGE_NAME' folder
+4. In your main project root folder run `npm link PACKAGE_NAME`
 5. In your main project root folder run `ng serve` or `ionic serve`
 
 Now the main project will be sym-linked to the library, and when you make some change inn the library, the main project will naturally reaload itself!
