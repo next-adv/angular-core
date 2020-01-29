@@ -20,10 +20,13 @@ Now the main project will be sym-linked to the library
 2. In your main project root folder run `ng serve` or `ionic serve`, depending on which framework you are using
 When you make some change in the library, the main project will naturally reaload itself!
 
+## Usage of this library in production
+
 If your developments in the library are terminated and **you want to publish them to NPM**
 
-1. Version your software by using `npm version patch|minor|major`. This will create a *tag* in your git repo.
-2. Run `npm publish`.
+1. Version your software by using `npm version patch|minor|major`. This will create a *tag* in your git repo
+2. Run `npm publish`
+3. Run your install and build task as usual
 If you miss this, production software won't get the updated library!
 
 ## Code scaffolding
