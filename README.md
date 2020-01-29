@@ -1,12 +1,11 @@
 # AngularCore
 
 A set of common libraries used in angular and ionic/angular projects.
-
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
 
 ## Usage of this library in development
 
-**Setup:**
+### Setup
 
 1. Clone the library in your workspace, **NOT inside your main project!**
 2. In the library folder run `npm i`, then `ng build`
@@ -15,7 +14,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 5. In your main project *angular.json* set *projects.app.architect.build.options.preserveSymlinks=true*
 Now the main project will be sym-linked to the library
 
-**Run:**
+### Run
 
 1. In the library folder run `ng build --watch`
 2. In your main project root folder run `ng serve` or `ionic serve`, depending on which framework you are using
@@ -26,10 +25,6 @@ If your developments in the library are terminated and **you want to publish the
 1. Version your software by using `npm version patch|minor|major`. This will create a *tag* in your git repo.
 2. Run `npm publish`.
 If you miss this, production software won't get the updated library!
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
