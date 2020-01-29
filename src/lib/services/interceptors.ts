@@ -4,9 +4,9 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { AuthAppleService } from '../services/authentication/auth.apple';
-import { AuthFacebookService } from '../services/authentication/auth.facebook';
-import { AuthWordpressService } from '../services/authentication/auth.wordpress';
+import { AuthAppleService } from './authentication/auth.apple';
+import { AuthFacebookService } from './authentication/auth.facebook';
+import { AuthWordpressService } from './authentication/auth.wordpress';
 
 @Injectable({
     providedIn: 'root'

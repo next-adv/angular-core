@@ -1,7 +1,7 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../out-tsc/lib",
+    "outDir": "../../../out-tsc/lib",
     "target": "es2015",
     "declaration": true,
     "inlineSources": true,
@@ -9,7 +9,21 @@
     "lib": [
       "dom",
       "es2018"
-    ]
+    ],
+    "paths": {
+        "@ionic-native/*": [
+            "./node_modules/@ionic-native/*"
+        ],
+        "@ionic/*": [
+            "./node_modules/@ionic/*"
+        ],
+        "core": [
+            "dist/core"
+        ],
+        "core/*": [
+            "dist/core/*"
+        ]
+    }
   },
   "angularCompilerOptions": {
     "annotateForClosureCompiler": true,

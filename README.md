@@ -9,8 +9,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 1. Clone the library in your workspace, **NOT inside your main project!**
 2. In the library folder run `npm i`, then `ng build`
-3. In the library *'/dist/PACKAGE_NAME'* folder run `npm link` 
-4. In your main project root folder run `npm link PACKAGE_NAME`
+3. In the library */dist/company* run `npm link @company/PACKAGE_NAME`
+    e.g. dist/@next-adv/ -> npm link @next-adv/angular-core
+4. In your main project root folder run `npm link @COMPANY/PACKAGE_NAME`
 5. In your main project *angular.json* set *projects.app.architect.build.options.preserveSymlinks=true*
 Now the main project will be sym-linked to the library
 
