@@ -25,7 +25,7 @@ When you make some change in the library, the main project will naturally realoa
 If your developments in the library are terminated and **you want to publish them to NPM**
 
 1. Version your software by using `npm version patch|minor|major`. This will create a *tag* in your git repo
-2. Push as usual
+2. Push as usual (`git push --tags`)
 3. Run `npm publish` to upload the library in the company npm registry.
 4. Run your install and build task as usual
 5. Enjoy
