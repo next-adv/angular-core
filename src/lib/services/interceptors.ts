@@ -36,12 +36,14 @@ export class GenericInterceptors implements HttpInterceptor {
     private authPlainService: AuthPlainService,
     @Inject(CoreConfigService) private config: ICoreConfig,
   ) {
-    this.token = /*this.authAppleService.token || this.authFacebookService.token || */this.authWordpressService.token || this.authPlainService.token;
+
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
     let newReq: any;
     let headers: HttpHeaders;
+
+    this.token = /*this.authAppleService.token || this.authFacebookService.token || */this.authWordpressService.token || this.authPlainService.token;
 
     // I18N
     if (req.url.indexOf('i18n') !== -1) {

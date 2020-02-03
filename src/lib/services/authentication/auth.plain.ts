@@ -21,23 +21,34 @@ export class AuthPlainService {
   ) {
   }
 
+  public logout() {
+    this.user = null;
+    this.token = null;
+    this.storage.clear();
+  }
+
   public autoLogin() {
+
     return this.storage.get('token').then(async token => {
-      this.token = token;
-      return await this.httpClient.get(this.config.restApi.autoLoginRestEndpoint || '/users/me/', {
-        headers: {
-          authorization: 'Bearer ' + token
-        }
-      })
-        .pipe(
-          catchError(async (e: any, caught: Observable<any>) => {
-            throw e;
-          }),
-          tap((data: any) => {
-            this.user = data.user;
-            return data;
-          })
-        ).toPromise();
+      console.log('autoLogin', token);
+      if (token) {
+        this.token = token;
+        return await this.httpClient.get(this.config.restApi.autoLoginRestEndpoint || '/users/me/', {
+          headers: {
+            authorization: 'Bearer ' + token
+          }
+        })
+          .pipe(
+            catchError(async (e: any, caught: Observable<any>) => {
+              throw e;
+            }),
+            tap((data: any) => {
+              console.log("AUTOLOGIN SETTO USER", data.user)
+              this.user = data.user;
+              return data;
+            })
+          ).toPromise();
+      }
     });
   }
 
@@ -52,6 +63,8 @@ export class AuthPlainService {
           throw e;
         }),
         tap((data: any) => {
+          debugger;
+          console.log("LOGIN SETTO USER", data.user)
           this.user = data.user;
           this.token = data.token;
           this.storage.set('token', this.token);
