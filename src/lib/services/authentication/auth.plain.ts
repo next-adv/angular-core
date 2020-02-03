@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Inject} from '@angular/core';
 import {catchError, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Storage} from '@ionic/storage';
 
-@Injectable({
+@Injectable(/*{
     providedIn: 'root'
-})
+}*/)
 export class AuthPlainService {
 
     public token: string;
@@ -14,13 +14,12 @@ export class AuthPlainService {
 
     constructor(
         private httpClient: HttpClient,
-        private storage: Storage,
+        private storage: Storage
     ) {
     }
 
     login(username: string, password: string) {
-        this.token = undefined;
-        return this.httpClient.post('API_ENDPOINT',
+        return this.httpClient.post('/auth',
             {
                 username,
                 password
@@ -30,7 +29,7 @@ export class AuthPlainService {
                     throw e;
                 }),
                 tap((data: any) => {
-                    this.user.email = data.user_email;
+                    this.user = data.user;
                     this.token = data.token;
                     this.storage.set('token', this.token);
                     return data;
