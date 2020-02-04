@@ -7,9 +7,9 @@ import {Storage} from '@ionic/storage';
 import {CoreConfigService} from '../core-config.service';
 import { ICoreConfig } from '../../../shared/interfaces/config.interface';
 
-@Injectable(/*{
+@Injectable({
     providedIn: 'root'
-}*/)
+})
 export class AuthPlainService {
 
   public token: string;
