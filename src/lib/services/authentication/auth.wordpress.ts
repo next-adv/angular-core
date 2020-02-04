@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {catchError, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-// import {TranslateService} from '@ngx-translate/core';
 import {HttpClient} from '@angular/common/http';
 import {Storage} from '@ionic/storage';
 
