@@ -28,9 +28,7 @@ export class AuthPlainService {
   }
 
   public autoLogin() {
-
     return this.storage.get('token').then(async token => {
-      console.log('autoLogin', token);
       if (token) {
         this.token = token;
         return await this.httpClient.get(this.config.restApi.autoLoginRestEndpoint || '/users/me/', {
@@ -43,7 +41,6 @@ export class AuthPlainService {
               throw e;
             }),
             tap((data: any) => {
-              console.log("AUTOLOGIN SETTO USER", data.user)
               this.user = data.user;
               return data;
             })
@@ -52,10 +49,10 @@ export class AuthPlainService {
     });
   }
 
-  public login(username: string, password: string) {
+  public login(email: string, password: string) {
     return this.httpClient.post('/auth',
       {
-        username,
+        email,
         password
       })
       .pipe(
@@ -63,11 +60,24 @@ export class AuthPlainService {
           throw e;
         }),
         tap((data: any) => {
-          debugger;
-          console.log("LOGIN SETTO USER", data.user)
           this.user = data.user;
           this.token = data.token;
           this.storage.set('token', this.token);
+          return data;
+        })
+      );
+  }
+
+  public forgotPwd(email: string) {
+    return this.httpClient.post('/forgotPwd',
+      {
+        email
+      })
+      .pipe(
+        catchError(async (e: any, caught: Observable<any>) => {
+          throw e;
+        }),
+        tap((data: any) => {
           return data;
         })
       );

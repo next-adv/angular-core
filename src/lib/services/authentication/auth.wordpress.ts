@@ -19,11 +19,11 @@ export class AuthWordpressService {
   ) {
   }
 
-  login(username: string, password: string) {
+  login(email: string, password: string) {
     this.token = undefined;
     return this.httpClient.post('/wp-api/jwt-auth/v1/token',
       {
-        username,
+        email,
         password
       })
       .pipe(
