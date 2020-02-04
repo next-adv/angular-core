@@ -56,9 +56,9 @@ export class AuthPlainService {
         password
       })
       .pipe(
-        catchError(async (e: any, caught: Observable<any>) => {
+        /*catchError(async (e: any, caught: Observable<any>) => {
           throw e;
-        }),
+        }),*/
         tap((data: any) => {
           this.user = data.user;
           this.token = data.token;

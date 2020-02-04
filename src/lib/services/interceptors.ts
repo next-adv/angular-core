@@ -2,22 +2,19 @@ import {Inject, Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-/*import { environment } from '../../environments/environment';
-import { AuthAppleService } from './authentication/auth.apple';
-import { AuthFacebookService } from './authentication/auth.facebook';*/
 import {CoreConfigService} from './core-config.service';
 import {AuthWordpressService} from './authentication/auth.wordpress';
 import {AuthPlainService} from './authentication/auth.plain';
 
 export interface ICoreConfig {
-  restApi : {
+  restApi: {
     authRestEndpoint?: string;
     autoLoginRestEndpoint?: string;
     logoutRestEndpoint?: string;
     restEndpoint: string;
     mockRestEndpoint?: string;
     wordpressRestEndpoint?: string;
-  },
+  };
   locale: string;
 }
 
@@ -30,8 +27,6 @@ export class GenericInterceptors implements HttpInterceptor {
   reqQueue: { req: HttpRequest<any>, next: HttpHandler }[] = [];
 
   constructor(
-    // private authAppleService: AuthAppleService,
-    // private authFacebookService: AuthFacebookService,
     private authWordpressService: AuthWordpressService,
     private authPlainService: AuthPlainService,
     @Inject(CoreConfigService) private config: ICoreConfig,
@@ -40,10 +35,11 @@ export class GenericInterceptors implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
+    const locale = this.config.locale || 'en';
     let newReq: any;
     let headers: HttpHeaders;
 
-    this.token = /*this.authAppleService.token || this.authFacebookService.token || */this.authWordpressService.token || this.authPlainService.token;
+    this.token = this.authWordpressService.token || this.authPlainService.token;
 
     // I18N
     if (req.url.indexOf('i18n') !== -1) {
@@ -53,15 +49,14 @@ export class GenericInterceptors implements HttpInterceptor {
       });
       return next.handle(newReq2);
     }
-
     // HEADERS
     if (this.token) {
       headers = new HttpHeaders({
         Authorization: 'Bearer ' + this.token,
-        locale: this.config.locale
+        locale
       });
     } else {
-      headers = req.headers.append('locale', this.config.locale);
+      headers = req.headers.append('locale', locale);
     }
 
     // HOST
