@@ -12,8 +12,9 @@ import { IonicStorageModule } from '@ionic/storage';
 import {LoginComponent} from './ionic-components/login/login.component';*/
 import {ButtonSwitchComponent} from './services/pure-components/button-switch/button-switch.component';
 import { AuthPlainService } from './services/authentication/auth.plain';
-import { ICoreConfig, GenericInterceptors } from './services/interceptors';
+import { GenericInterceptors } from './services/interceptors';
 import { CoreConfigService } from './services/core-config.service';
+import { ICoreConfig } from './shared/interfaces/config.interface';
 /*import {AccordionComponent} from './ionic-components/accordion/accordion/accordion.component';
 import {RestorePasswordComponent} from './ionic-components/restore-password/restore-password.component';
 import {ChangePasswordComponent} from './ionic-components/change-password/change-password.component';*/

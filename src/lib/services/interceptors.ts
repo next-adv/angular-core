@@ -5,7 +5,7 @@ import {map} from 'rxjs/operators';
 import {CoreConfigService} from './core-config.service';
 import {AuthWordpressService} from './authentication/auth.wordpress';
 import {AuthPlainService} from './authentication/auth.plain';
-import { ICoreConfig } from '../../shared/interfaces/config.interface';
+import { ICoreConfig } from '../shared/interfaces/config.interface';
 
 
 @Injectable({

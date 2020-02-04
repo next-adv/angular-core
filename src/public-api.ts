@@ -18,9 +18,7 @@ export { RestorePasswordComponent } from './lib/ionic-components/restore-passwor
 export { SignUpComponent } from './lib/ionic-components/sign-up/sign-up.component';*/
 
 // AUTH
-//export { AuthFacebookService } from './lib/services/authentication/auth.facebook';
 export { AuthWordpressService } from './lib/services/authentication/auth.wordpress';
-//export { AuthAppleService } from './lib/services/authentication/auth.apple';
 export { AuthPlainService } from './lib/services/authentication/auth.plain';
 
 // HELPER

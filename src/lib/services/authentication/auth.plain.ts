@@ -5,7 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {Storage} from '@ionic/storage';
 
 import {CoreConfigService} from '../core-config.service';
-import { ICoreConfig } from '../../../shared/interfaces/config.interface';
+import { ICoreConfig } from '../../shared/interfaces/config.interface';
 
 @Injectable({
     providedIn: 'root'

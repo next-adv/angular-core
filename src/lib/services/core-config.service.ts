@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { ICoreConfig } from './interceptors';
+import { ICoreConfig } from '../shared/interfaces/config.interface';
 
 /**
  * This is not a real service, but it looks like it from the outside.
