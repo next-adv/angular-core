@@ -16,7 +16,7 @@ Now the main project will be sym-linked to the library
 
 ### Run
 
-1. In the library root folder run `ng build  @COMPANY/PACKAGE_NAME --watch`
+1. In the library root folder run `ng build  @COMPANY/PACKAGE_NAME --watch`, or in the project folder `ng build --watch`
 2. In your main project root folder run `ng serve` or `ionic serve`, depending on which framework you are using
 When you make some change in the library, the main project will naturally reaload itself!
 
@@ -24,11 +24,14 @@ When you make some change in the library, the main project will naturally realoa
 
 If your developments in the library are terminated and **you want to publish them to NPM**
 
-1. Version your software by using `npm version patch|minor|major`. This will create a *tag* in your git repo
+1. In your */projects/@company/package* folder, commit your code and version your software using `npm version patch|minor|major`. This will create a *tagged commit* in your git repo
 2. Push as usual (`git push --tags`)
-3. Run `npm publish` to upload the library in the company npm registry.
-4. Run your install and build task as usual
-5. Enjoy
+3. Run `ng build` to generate a new compiled package in the */dist* folder
+4. Move to */dist/@company/package* folder and run `npm publish` to upload the library in the npm registry.
+5. In the main app folder run install and build task as usual
+6. Enjoy
+
+P.S. **If you published the wrong package**, run `npm unpublish <@company/package>`
 
 ## Code scaffolding
 
