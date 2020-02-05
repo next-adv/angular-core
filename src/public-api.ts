@@ -23,4 +23,3 @@ export { AuthPlainService } from './lib/services/authentication/auth.plain';
 
 // HELPER
 export { UIHelperService } from './lib/services/helpers/ui-helper.service';
-export { DeviceHelperService } from './lib/services/helpers/device-helper.service';

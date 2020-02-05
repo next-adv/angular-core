@@ -1,10 +1,10 @@
-import {NgModule, InjectionToken, ModuleWithProviders} from '@angular/core';
+import {NgModule,  ModuleWithProviders} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ReactiveFormsModule} from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
 import {TranslateModule} from '@ngx-translate/core';
 import {RouterModule} from '@angular/router';
-import {Facebook} from '@ionic-native/facebook/ngx';
+//import {Facebook} from '@ionic-native/facebook/ngx';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 
