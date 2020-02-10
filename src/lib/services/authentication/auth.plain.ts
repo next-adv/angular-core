@@ -19,7 +19,14 @@ export class AuthPlainService {
     private httpClient: HttpClient,
     private storage: Storage,
     @Inject(CoreConfigService) private config: ICoreConfig,
-  ) {}
+  ) {
+    this.initToken();
+  }
+
+  public async initToken(): Promise<string> {
+    this.token = await this.storage.get('token');
+    return this.token;
+  }
 
   public logout() {
     this.user = null;
