@@ -20,6 +20,16 @@ Now the main project will be sym-linked to the library
 2. In your main project root folder run `ng serve` or `ionic serve`, depending on which framework you are using
 When you make some change in the library, the main project will naturally reaload itself!
 
+### Module configuration
+
+This module has an high level of customizability through the *forRoot* static method:
+
+. **auth**: it contains a map to determine what kind of object the *login* API expects
+. **restApi**: it contains a map to determine REST-API endpoints
+. **locale**: locale header (it, en etc)
+
+For any further infos please consult the **ICoreConfig** interface
+
 ## Usage of this library in production
 
 If your developments in the library are terminated and **you want to publish them to NPM**
