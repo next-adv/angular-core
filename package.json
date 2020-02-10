@@ -13,7 +13,6 @@
   "private": false,
   "dependencies": {
     "@ionic/storage": "^2.2.0",
-    "@ngx-translate/core": "^11.0.1",
     "rxjs": "^6.5.4"
   },
   "devDependencies": {
@@ -50,6 +49,7 @@
     "@angular/forms": "^8.2.14",
     "@angular/language-service": "~8.1.2",
     "@angular/router": "^8.2.14",
+    "@ngx-translate/core": "^11.0.1",
     "zone.js": "~0.9.1"
   }
 }
