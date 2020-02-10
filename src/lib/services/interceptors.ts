@@ -20,12 +20,20 @@ export class GenericInterceptors implements HttpInterceptor {
     private authWordpressService: AuthWordpressService,
     private authPlainService: AuthPlainService,
     @Inject(CoreConfigService) private config: ICoreConfig,
-  ) {
+  ) {}
 
+  private getUsersLocale(defaultValue: string): string {
+    if (typeof window === 'undefined' || typeof window.navigator === 'undefined') {
+      return defaultValue;
+    }
+    const wn = window.navigator as any;
+    let lang = wn.languages ? wn.languages[0] : defaultValue;
+    lang = lang || wn.language || wn.browserLanguage || wn.userLanguage;
+    return lang;
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
-    const locale = this.config.locale || 'en';
+    const locale = this.getUsersLocale(this.config.locale) || 'en';
     let newReq: any;
     let headers: HttpHeaders;
 
