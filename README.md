@@ -24,9 +24,9 @@ When you make some change in the library, the main project will naturally realoa
 
 This module has an high level of customizability through the *forRoot* static method:
 
-. **auth**: it contains a map to determine what kind of object the *login* API expects
-. **restApi**: it contains a map to determine REST-API endpoints
-. **locale**: locale header (it, en etc)
+* **auth**: it contains a map to determine what kind of object the *login* API expects
+* **restApi**: it contains a map to determine REST-API endpoints
+* **locale**: locale header (it, en etc)
 
 For any further infos please consult the **ICoreConfig** interface
 
@@ -35,11 +35,10 @@ For any further infos please consult the **ICoreConfig** interface
 If your developments in the library are terminated and **you want to publish them to NPM**
 
 1. In your */projects/@company/package* folder, commit your code and version your software using `npm version patch|minor|major`. This will create a *tagged commit* in your git repo
-2. Push as usual (`git push --tags`)
-3. Run `ng build` to generate a new compiled package in the */dist* folder
-4. Move to */dist/@company/package* folder and run `npm publish` to upload the library in the npm registry.
-5. In the main app folder run install and build task as usual
-6. Enjoy
+2. Push as usual (`git push && git push --tags`)
+3. Run `npm run build-publish` to generate a new compiled package in the */dist* folder and publish it to the registry
+4. In the main app folder run install and build task as usual
+5. Enjoy
 
 P.S. **If you published the wrong package**, run `npm unpublish <@company/package>`
 
