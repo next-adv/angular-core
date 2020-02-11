@@ -32,7 +32,7 @@ export class GenericInterceptors implements HttpInterceptor {
     return lang;
   }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const locale = this.getUsersLocale(this.config.locale) || 'en';
     let newReq: any;
     let headers: HttpHeaders;
