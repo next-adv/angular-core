@@ -8,7 +8,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build-publish": "ng build && cd ../../../dist/next-adv/angular-core/ && npm publish"
   },
   "private": false,
   "dependencies": {},
