@@ -28,13 +28,13 @@ export class AuthPlainService {
     return this.token;
   }
 
-  public logout() {
+  public logout(): void {
     this.user = null;
     this.token = null;
     this.storage.clear();
   }
 
-  public autoLogin() {
+  public autoLogin(): Promise<any> {
     return this.storage.get('token').then(async token => {
       if (token) {
         this.token = token;
@@ -53,7 +53,7 @@ export class AuthPlainService {
     });
   }
 
-  public login(id: string, password: string) {
+  public login(id: string, password: string): Promise<any> {
     const payload: any = {};
 
     payload[this.config.auth ? this.config.auth.idField : 'username'] = id;
@@ -66,10 +66,11 @@ export class AuthPlainService {
           this.storage.set('token', this.token);
           return data;
         })
-      );
+      )
+      .toPromise();
   }
 
-  public forgotPwd(id: string) {
+  public forgotPwd(id: string): Promise<any> {
     const payload: any = {};
 
     payload[this.config.auth ? this.config.auth.idField : 'username'] = id;
@@ -83,6 +84,7 @@ export class AuthPlainService {
         tap((data: any) => {
           return data;
         })
-      );
+      )
+      .toPromise();
   }
 }
