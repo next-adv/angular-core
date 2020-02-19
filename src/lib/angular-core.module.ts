@@ -7,7 +7,6 @@ import {RouterModule} from '@angular/router';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 
-import { AuthPlainService } from './services/authentication/auth.plain';
 import { GenericInterceptors } from './services/interceptors';
 import { CoreConfigService } from './services/core-config.service';
 import { ICoreConfig } from './shared/interfaces/config.interface';
@@ -32,16 +31,14 @@ import { ICoreConfig } from './shared/interfaces/config.interface';
             multi: true
         }
     ],
-    exports: [
-    ]
+    exports: []
 })
 export class AngularCoreModule {
 
-    static forRoot(config: ICoreConfig): ModuleWithProviders {
+    public static setConfig(config: ICoreConfig): ModuleWithProviders {
         return {
             ngModule: AngularCoreModule,
             providers: [
-                AuthPlainService,
                 {
                     provide: CoreConfigService,
                     useValue: config
