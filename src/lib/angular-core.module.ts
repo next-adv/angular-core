@@ -2,7 +2,6 @@ import {NgModule,  ModuleWithProviders} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ReactiveFormsModule} from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
-import {TranslateModule} from '@ngx-translate/core';
 import {RouterModule} from '@angular/router';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
@@ -17,7 +16,6 @@ import { ICoreConfig } from './shared/interfaces/config.interface';
         CommonModule,
         ReactiveFormsModule,
         IonicModule,
-        TranslateModule,
         RouterModule,
         HttpClientModule,
         IonicStorageModule.forRoot()
