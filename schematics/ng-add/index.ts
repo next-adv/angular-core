@@ -1,8 +1,9 @@
 import {
   Rule, Tree/*, SchematicContext*/
 } from '@angular-devkit/schematics';
-import { addModuleImportToRootModule, getProjectFromWorkspace } from 'schematics-utilities';
+import { addModuleImportToRootModule, getProjectFromWorkspace, getAppModulePath } from 'schematics-utilities';
 import { getWorkspace } from '@schematics/angular/utility/config';
+import { addModuleImportToModule } from '@schematics/angular';
 
 export function ngAdd(options: any): Rule {
   return (host: Tree/*, context: SchematicContext*/) => {
@@ -16,29 +17,9 @@ export function ngAdd(options: any): Rule {
         workspace,
         options.project || workspace.defaultProject
       );
-      // inject our module into the current main module of the selected project
-      addModuleImportToRootModule(
-        // tree to modify
-        host,
-        // Module name to insert
-         `AngularCoreModule.setConfig(
-          {
-            auth: {
-              idField: 'email',
-              pwdField: 'password',
-            },
-            restApi: {
-              restEndpoint: 'http://dev.server.com/api',
-            },
-            locale: 'it'
-          }
-        )`,
-        // project name for import statement
-        '@next-adv/angular-core',
-        // project to be modified
-        project
-      );
-
+      const targets = project.targets || project.architect;
+      const modulePath = getAppModulePath(host, targets.build.options.main);
+      addModuleImportToModule(host, modulePath, 'AngularCoreModule', '@next-adv/angular-core');
       // return updated tree
       return host;
   };
