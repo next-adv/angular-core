@@ -4,7 +4,7 @@ import {
 import { addModuleImportToRootModule, getProjectFromWorkspace } from 'schematics-utilities';
 import { getWorkspace } from '@schematics/angular/utility/config';
 
-export function myService(options: MyServiceSchema): Rule {
+export function ngAdd(options: any): Rule {
   return (host: Tree/*, context: SchematicContext*/) => {
       // get the workspace config of the consuming project
       // i.e. angular.json file
