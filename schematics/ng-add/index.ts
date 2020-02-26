@@ -13,19 +13,19 @@ export function ngAdd(options: any): Rule {
       // identify the project config which is using our library
       // or default to the default project in consumer workspace
       const project = getProjectFromWorkspace(
-      workspace,
-      options.project || workspace.defaultProject
+        workspace,
+        options.project || workspace.defaultProject
       );
       // inject our module into the current main module of the selected project
       addModuleImportToRootModule(
-      // tree to modify
-      host,
-      // Module name to insert
-      'AngularCoreModule',
-      // project name for import statement
-      '@next-adv/angular-core',
-      // project to be modified
-      project
+        // tree to modify
+        host,
+        // Module name to insert
+        'AngularCoreModule',
+        // project name for import statement
+        '@next-adv/angular-core',
+        // project to be modified
+        project
       );
 
       // return updated tree
