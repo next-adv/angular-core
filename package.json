@@ -1,6 +1,6 @@
 {
   "name": "@next-adv/angular-core",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "author": "Riccardo Coco, Giuseppe Matrella",
   "scripts": {
     "build-publish": "ng build && cd ../../dist/angular-core/ && npm publish",
