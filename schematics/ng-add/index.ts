@@ -9,7 +9,6 @@ export function ngAdd(options: any): Rule {
       // get the workspace config of the consuming project
       // i.e. angular.json file
       const workspace = getWorkspace(host);
-      console.log('workspace', workspace);
 
       // identify the project config which is using our library
       // or default to the default project in consumer workspace
@@ -17,8 +16,6 @@ export function ngAdd(options: any): Rule {
       workspace,
       options.project || workspace.defaultProject
       );
-      console.log('project', project);
-      console.log('three before', host);
       // inject our module into the current main module of the selected project
       addModuleImportToRootModule(
       // tree to modify
@@ -31,7 +28,6 @@ export function ngAdd(options: any): Rule {
       project
       );
 
-      console.log('three after', host);
       // return updated tree
       return host;
   };
