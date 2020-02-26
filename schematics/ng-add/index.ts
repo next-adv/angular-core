@@ -21,7 +21,18 @@ export function ngAdd(options: any): Rule {
         // tree to modify
         host,
         // Module name to insert
-        'AngularCoreModule',
+         `AngularCoreModule.setConfig(
+          {
+            auth: {
+              idField: 'email',
+              pwdField: 'password',
+            },
+            restApi: {
+              restEndpoint: 'http://dev.server.com/api',
+            },
+            locale: 'it'
+          }
+        )`,
         // project name for import statement
         '@next-adv/angular-core',
         // project to be modified
