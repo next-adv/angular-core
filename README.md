@@ -42,6 +42,14 @@ If your developments in the library are terminated and **you want to publish the
 
 P.S. **If you published the wrong package**, run `npm unpublish <@company/package>`
 
+## Schematics
+
+In order to develop schematics:
+
+1. Version and build the library
+2. In the library folder, run `npm run build` to copy the schematics in the *dist/lib* folder
+3. In the _dist/lib_ folder run `npm publish`
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
