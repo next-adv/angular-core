@@ -3,7 +3,6 @@ import {
 } from '@angular-devkit/schematics';
 import { addModuleImportToRootModule, getProjectFromWorkspace } from 'schematics-utilities';
 import { getWorkspace } from '@schematics/angular/utility/config';
-import { ISchema as MyServiceSchema } from './schema';
 
 export function myService(options: MyServiceSchema): Rule {
   return (host: Tree/*, context: SchematicContext*/) => {
