@@ -14,5 +14,7 @@
       "@ionic-native/device/ngx/index": "@ionic-native/device/ngx/index"
     }
   },
-  "whitelistedNonPeerDependencies": ["@ionic", "rxjs"]
+  "whitelistedNonPeerDependencies": [
+    "schematics-utilities"
+  ]
 }
