@@ -11,9 +11,6 @@
       "es2018"
     ],
     "paths": {
-        "@ionic/storage": [
-            "node_modules/@ionic/storage"
-        ],
         "core": [
             "dist/core"
         ],

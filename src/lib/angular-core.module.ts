@@ -1,10 +1,9 @@
 import {NgModule,  ModuleWithProviders} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ReactiveFormsModule} from '@angular/forms';
-import {IonicModule} from '@ionic/angular';
+import {IonicStorageModule} from '@ionic/storage';
 import {RouterModule} from '@angular/router';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-import { IonicStorageModule } from '@ionic/storage';
 
 import { GenericInterceptors } from './services/interceptors';
 import { CoreConfigService } from './services/core-config.service';
@@ -15,7 +14,6 @@ import { ICoreConfig } from './shared/interfaces/config.interface';
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        IonicModule,
         RouterModule,
         HttpClientModule,
         IonicStorageModule.forRoot()
