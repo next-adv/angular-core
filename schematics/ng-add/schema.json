@@ -10,6 +10,16 @@
         "$default": {
           "$source": "projectName"
         }
+      },
+      "locale": {
+        "description": "App locale (http-header)",
+        "type": "string",
+        "default": "en",
+        "enum": [
+          "en",
+          "it"
+        ],
+        "x-prompt": "Choose the app locale"
       }
     },
     "required": [],
