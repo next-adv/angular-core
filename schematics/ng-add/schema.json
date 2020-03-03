@@ -14,7 +14,7 @@
       "welcome": {
         "description": "",
         "type": "string",
-        "x-prompt": "Welcome to the Next-Adv/Angular-Core package auto-installer procedure.\n Press any key;"
+        "x-prompt": "\n\n\nWelcome to the Next-Adv/Angular-Core package auto-installer procedure.\n Press any key;"
       },
       "locale": {
         "description": "App locale (http-header)",
