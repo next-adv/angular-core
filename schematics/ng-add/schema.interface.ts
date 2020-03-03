@@ -4,4 +4,5 @@ export default interface ISchema {
     authIdField: string;
     authPwdField: string;
     devServerUrl: string;
+    path: string;
 }

@@ -59,7 +59,7 @@ export function ngAdd(options: ISchema): Rule {
     const path = (options.path === undefined) ? `${project.sourceRoot}/${projectType}` : options.path;
 
     addModuleImport(host, path);
-    addModuleEntry(host, path, option);
+    addModuleEntry(host, path, options);
 
     // return updated tree
     return host;
