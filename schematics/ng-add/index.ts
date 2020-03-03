@@ -2,26 +2,34 @@ import { Rule, Tree } from '@angular-devkit/schematics';
 import { getProjectFromWorkspace } from 'schematics-utilities';
 import { getWorkspace } from '@schematics/angular/utility/config';
 
-import ISchema from './schema.interface';
+import ISchema, {IEnv} from './schema.interface';
 
 
 function generateEnvironmentValues(host: Tree, sourceRoot: string, options: ISchema) {
-  const content: Buffer | null = host.read(sourceRoot + '/environments/environment.ts');
-  const envDummy = JSON.stringify({
+  const devContent: Buffer | null = host.read(sourceRoot + '/environments/environment.ts');
+  const prodContent: Buffer | null = host.read(sourceRoot + '/environments/environment.prod.ts');
+  const envObj: IEnv = {
     locale: options.locale,
     authIdField: options.authIdField,
     authPwdField: options.authPwdField,
     devServerUrl: options.devServerUrl,
-  }, null, 2).replace(/\"([^(\")"]+)\":/g,"$1:").replace(/"/g, "'");//beautify
+  };
+  const envDummy = JSON.stringify(envObj, null, 2).replace(/\"([^(\")"]+)\":/g,"$1:").replace(/"/g, "'");//beautify
 
-  if (content) {
-    const strContent = content.toString();
+  if (devContent && prodContent) {
+    const strDevContent = devContent.toString();
+    const strProdContent = prodContent.toString();
     const envStr = envDummy.slice(1, envDummy.length - 1);// {} clean
-    const updatedContent = strContent.replace(
+    const updatedDevContent = strDevContent.replace(
       /(export const environment = {\n\s*production:\s*false)/,
       '$1,\n// @next-adv/angular-core auto-generated code' + envStr + '// @next-adv/angular-core auto-generated code end'
       );
-    host.overwrite(sourceRoot + '/environments/environment.ts', updatedContent);
+    const updatedProdContent = strProdContent.replace(
+      /(export const environment = {\n\s*production:\s*true)/,
+      '$1,\n// @next-adv/angular-core auto-generated code' + envStr + '// @next-adv/angular-core auto-generated code end'
+      );
+    host.overwrite(sourceRoot + '/environments/environment.ts', updatedDevContent);
+    host.overwrite(sourceRoot + '/environments/environment.prod.ts', updatedProdContent);
   }
 }
 
@@ -50,16 +58,16 @@ function addModuleEntry(host: Tree, path: string): void {
     const content2Append = `
     // @next-adv/angular-core auto-generated code
     AngularCoreModule.setConfig(
-        {
-          auth: {
-            idField: environment.authIdField,
-            pwdField: environment.authPwdField,
-          },
-          restApi: {
-            restEndpoint: environment.devServerUrl,
-          },
-          locale: environment.locale
-        }
+      {
+        auth: {
+          idField: environment.authIdField,
+          pwdField: environment.authPwdField,
+        },
+        restApi: {
+          restEndpoint: environment.devServerUrl,
+        },
+        locale: environment.locale
+      }
     ),
     // @next-adv/angular-core auto-generated code end\n`;
     const updatedContent = strContent.slice(0, appendIndex) + content2Append + strContent.slice(appendIndex);
