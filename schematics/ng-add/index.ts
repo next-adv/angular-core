@@ -22,7 +22,8 @@ function addModuleEntry(host: Tree, path: string): void {
   if (content) {
     const strContent = content.toString();
     const appendIndex = strContent.indexOf('imports: [') + ('imports: [').length;
-    const content2Append = `AngularCoreModule.setConfig(
+    const content2Append = `
+    AngularCoreModule.setConfig(
         {
           auth: {
             idField: 'email',
