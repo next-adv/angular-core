@@ -14,8 +14,7 @@
       "welcome": {
         "description": "",
         "type": "string",
-        "default": "en",
-        "x-prompt": "Welcome to the Next-Adv/Angular-Core auto-installer. Press any key;"
+        "x-prompt": "Welcome to the Next-Adv/Angular-Core package auto-installer procedure.\n Press any key;"
       },
       "locale": {
         "description": "App locale (http-header)",
@@ -42,7 +41,6 @@
       "devServerUrl": {
         "description": "Define the dev server url",
         "type": "string",
-        "default": "",
         "x-prompt": "(REST) Specify the dev server url (e.g. https://domain.com:8080/api):"
       }
     },
