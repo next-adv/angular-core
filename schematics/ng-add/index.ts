@@ -2,6 +2,8 @@ import { Rule, Tree } from '@angular-devkit/schematics';
 import { getProjectFromWorkspace } from 'schematics-utilities';
 import { getWorkspace } from '@schematics/angular/utility/config';
 
+import ISchema from './schema.interface';
+
 
 function addModuleImport(host: Tree, path: string): void {
   const content: Buffer | null = host.read(path + '/app.module.ts');
@@ -15,7 +17,7 @@ function addModuleImport(host: Tree, path: string): void {
   }
 }
 
-function addModuleEntry(host: Tree, path: string): void {
+function addModuleEntry(host: Tree, path: string, options: ISchema): void {
   // inject our module into the current main module of the selected project
   const content: Buffer | null = host.read(path + '/app.module.ts');
 
@@ -26,13 +28,13 @@ function addModuleEntry(host: Tree, path: string): void {
     AngularCoreModule.setConfig(
         {
           auth: {
-            idField: 'email',
-            pwdField: 'password',
+            idField: '${options.authIdField}',
+            pwdField: '${options.authPwdField}',
           },
           restApi: {
-            restEndpoint: 'http://dev.server.com/api',
+            restEndpoint: '${options.devServerUrl}',
           },
-          locale: 'it'
+          locale: '${options.locale}'
         }
     ),\n`;
     const updatedContent = strContent.slice(0, appendIndex) + content2Append + strContent.slice(appendIndex);
@@ -40,7 +42,7 @@ function addModuleEntry(host: Tree, path: string): void {
   }
 }
 
-export function ngAdd(options: any): Rule {
+export function ngAdd(options: ISchema): Rule {
   return (host: Tree/*, context: SchematicContext*/) => {
     // get the workspace config of the consuming project
     // i.e. angular.json file
@@ -57,7 +59,7 @@ export function ngAdd(options: any): Rule {
     const path = (options.path === undefined) ? `${project.sourceRoot}/${projectType}` : options.path;
 
     addModuleImport(host, path);
-    addModuleEntry(host, path);
+    addModuleEntry(host, path, option);
 
     // return updated tree
     return host;

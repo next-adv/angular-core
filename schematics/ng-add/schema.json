@@ -11,6 +11,12 @@
           "$source": "projectName"
         }
       },
+      "welcome": {
+        "description": "",
+        "type": "string",
+        "default": "en",
+        "x-prompt": "Welcome to the Next-Adv/Angular-Core auto-installer. Press any key;"
+      },
       "locale": {
         "description": "App locale (http-header)",
         "type": "string",
@@ -19,7 +25,25 @@
           "en",
           "it"
         ],
-        "x-prompt": "Choose the app locale"
+        "x-prompt": "(REST) Choose the app locale:"
+      },
+      "authIdField": {
+        "description": "Define the userId field name for authentication request",
+        "type": "string",
+        "default": "email",
+        "x-prompt": "(REST) Specify the userId field for authentication request:"
+      },
+      "authPwdField": {
+        "description": "Define the password field name for authentication request",
+        "type": "string",
+        "default": "password",
+        "x-prompt": "(REST) Specify the password field name for authentication request:"
+      },
+      "devServerUrl": {
+        "description": "Define the dev server url",
+        "type": "string",
+        "default": "",
+        "x-prompt": "(REST) Specify the dev server url (e.g. https://domain.com:8080/api):"
       }
     },
     "required": [],
