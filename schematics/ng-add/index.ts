@@ -22,20 +22,18 @@ function addModuleEntry(host: Tree, path: string): void {
   if (content) {
     const strContent = content.toString();
     const appendIndex = strContent.indexOf('imports: [') + ('imports: [').length;
-    const content2Append = `
-    AngularCoreModule.setConfig(
-         {
-           auth: {
-             idField: 'email',
-             pwdField: 'password',
-           },
-           restApi: {
-             restEndpoint: 'http://dev.server.com/api',
-           },
-           locale: 'it'
-         }
-       )
-    ),`;
+    const content2Append = `AngularCoreModule.setConfig(
+        {
+          auth: {
+            idField: 'email',
+            pwdField: 'password',
+          },
+          restApi: {
+            restEndpoint: 'http://dev.server.com/api',
+          },
+          locale: 'it'
+        }
+    ),\n`;
     const updatedContent = strContent.slice(0, appendIndex) + content2Append + strContent.slice(appendIndex);
     host.overwrite(path + '/app.module.ts', updatedContent);
   }
