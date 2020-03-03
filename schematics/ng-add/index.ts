@@ -46,8 +46,6 @@ export function ngAdd(options: ISchema): Rule {
   return (host: Tree/*, context: SchematicContext*/) => {
     // get the workspace config of the consuming project
     // i.e. angular.json file
-
-    console.log(options);
     const workspace = getWorkspace(host);
     // identify the project config which is using our library
     // or default to the default project in consumer workspace
