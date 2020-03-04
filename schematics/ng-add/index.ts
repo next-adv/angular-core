@@ -5,7 +5,7 @@ import { getWorkspace } from '@schematics/angular/utility/config';
 import ISchema, {IEnv} from './schema.interface';
 
 
-function generateEnvironmentValues(host: Tree, sourceRoot: string, options: ISchema) {
+function generateEnvironmentValues(host: Tree, sourceRoot: string, options: ISchema): void {
   const devContent: Buffer | null = host.read(sourceRoot + '/environments/environment.ts');
   const prodContent: Buffer | null = host.read(sourceRoot + '/environments/environment.prod.ts');
   const envObj: IEnv = {
@@ -19,7 +19,7 @@ function generateEnvironmentValues(host: Tree, sourceRoot: string, options: ISch
   if (devContent && prodContent) {
     const strDevContent = devContent.toString();
     const strProdContent = prodContent.toString();
-    const envStr = envDummy.slice(1, envDummy.length - 1);// {} clean
+    const envStr = envDummy.slice(1, envDummy.length - 2) + ',\n';
     const updatedDevContent = strDevContent.replace(
       /(export const environment = {\n\s*production:\s*false)/,
       '$1,\n// @next-adv/angular-core auto-generated code' + envStr + '// @next-adv/angular-core auto-generated code end'
