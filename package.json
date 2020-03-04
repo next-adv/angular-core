@@ -3,8 +3,7 @@
   "version": "3.4.11",
   "author": "Riccardo Coco, Giuseppe Matrella",
   "scripts": {
-    "build-publish": "ng build && cd ../../dist/angular-core/ && npm publish",
-    "build": "../../node_modules/.bin/tsc -p tsconfig.schematics.json",
+    "build:schemas": "../../node_modules/.bin/tsc -p tsconfig.schematics.json",
     "copy:schemas": "for i in schematics/*/schema.json; do mkdir -p `dirname ../../dist/angular-core/$i`; done && cp ./schematics/ng-add/schema.json ../../dist/angular-core/schematics/ng-add/",
     "copy:files": "mkdir -p schematics/*/files/** ../../dist/angular-core/ && cp -p schematics/*/files/** ../../dist/angular-core/",
     "copy:collection": "cp schematics/collection.json ../../dist/angular-core/schematics/collection.json",
