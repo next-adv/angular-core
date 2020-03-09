@@ -100,7 +100,7 @@ export function ngAdd(options: ISchema): Rule {
     generateEnvironmentValues(host, project.sourceRoot || 'src', options);
     addModuleImport(host, path);
     addModuleEntry(host, path);
-    addTplFiles(project.sourceRoot);
+    addTplFiles(project.sourceRoot || '');
 
     // return updated tree
     return host;
