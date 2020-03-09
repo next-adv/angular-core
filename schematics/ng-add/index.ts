@@ -20,9 +20,40 @@ function generateEnvironmentValues(host: Tree, sourceRoot: string, options: ISch
     locale: options.locale,
     authIdField: options.authIdField,
     authPwdField: options.authPwdField,
-    devServerUrl: options.devServerUrl,
+    restEndpointList: [
+      {
+        prefix: 'main-api',
+        url: options.devServerUrl
+      },
+      {
+        prefix: 'wp-api',
+        url: options.wpServerUrl
+      },
+    ],
+    restPathList: [
+      {
+        prefix: 'main-api',
+        type: 'auth',
+        url: '/auth-endpoint',
+      },
+      {
+        prefix: 'main-api',
+        type: 'userMe',
+        url: '/user-me-endpoint',
+      },
+      {
+        prefix: 'main-api',
+        type: 'forgotPwd',
+        url: '/forgot-pwd-endpoint',
+      },
+      {
+        prefix: 'wp-api',
+        type: 'auth',
+        url: '/auth-endpoint',
+      },
+    ],
   };
-  const envDummy = JSON.stringify(envObj, null, 2).replace(/\"([^(\")"]+)\":/g, "$1:").replace(/"/g, "'");//beautify
+  const envDummy = JSON.stringify(envObj, null, 2).replace(/\"([^(\")"]+)\":/g, "$1:").replace(/"/g, "'"); // beautify
 
   if (devContent && prodContent) {
     const strDevContent = devContent.toString();
@@ -74,7 +105,8 @@ function addModuleEntry(host: Tree, path: string): void {
           pwdField: environment.authPwdField,
         },
         restApi: {
-          restEndpoint: environment.devServerUrl,
+          restPathList: environment.restPathList,
+          restEndpointList: environment.restEndpointList,
         },
         locale: environment.locale
       }

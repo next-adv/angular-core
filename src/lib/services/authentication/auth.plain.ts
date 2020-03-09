@@ -37,8 +37,12 @@ export class AuthPlainService {
   public autoLogin(): Promise<any> {
     return this.storage.get('token').then(async token => {
       if (token) {
+        const userMePath = this.config.restApi
+        .restPathList.filter(value => value.prefix === 'main-api')
+        .find(value => value.type === 'userMe');
+
         this.token = token;
-        return await this.httpClient.get(this.config.restApi.autoLoginRestEndpoint || '/users/me/', {
+        return await this.httpClient.get(`/${userMePath.prefix}/${userMePath.url}`, {
           headers: {
             authorization: 'Bearer ' + token
           }
@@ -55,26 +59,30 @@ export class AuthPlainService {
 
   public login(id: string, password: string): Promise<any> {
     const payload: any = {};
+    const authPath = this.config.restApi.restPathList.filter(value => value.prefix === 'main-api').find(value => value.type === 'auth');
 
     payload[this.config.auth ? this.config.auth.idField : 'username'] = id;
     payload[this.config.auth ? this.config.auth.pwdField : 'password'] = password;
-    return this.httpClient.post(this.config.restApi.authRestEndpoint || '/auth', payload)
-      .pipe(
-        tap((data: any) => {
-          this.user = data.user;
-          this.token = data.token;
-          this.storage.set('token', this.token);
-          return data;
-        })
-      )
-      .toPromise();
+    return this.httpClient.post(`/${authPath.prefix}/${authPath.url}`, payload)
+    .pipe(
+      tap((data: any) => {
+        this.user = data.user;
+        this.token = data.token;
+        this.storage.set('token', this.token);
+        return data;
+      })
+    )
+    .toPromise();
   }
 
   public forgotPwd(id: string): Promise<any> {
     const payload: any = {};
+    const forgotPwdPath = this.config.restApi.restPathList
+    .filter(value => value.prefix === 'main-api')
+    .find(value => value.type === 'forgotPwd');
 
     payload[this.config.auth ? this.config.auth.idField : 'username'] = id;
-    return this.httpClient.post(this.config.restApi.passwordRestoreEndpoint || '/forgotPwd',
+    return this.httpClient.post(`/${forgotPwdPath.prefix}${forgotPwdPath.url}`,
       payload
       )
       .pipe(

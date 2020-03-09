@@ -11,20 +11,14 @@
           "$source": "projectName"
         }
       },
-      "welcome": {
-        "description": "",
-        "type": "string",
-        "x-prompt": "\n\n\n+---------------------------------------------------------------------------------------+\n|                                                                                       |\n| Welcome to the Next-Adv/Angular-Core package auto-installer procedure (press any key) |\n|                                                                                       |\n+---------------------------------------------------------------------------------------+\n\n\n"
-      },
       "locale": {
         "description": "App locale (http-header)",
-        "type": "string",
+        "x-prompt": "\n\n\n+---------------------------------------------------------------------------------------+\n|                                                                                       |\n| Welcome to the Next-Adv/Angular-Core package auto-installer procedure                 |\n|                                                                                       |\n+---------------------------------------------------------------------------------------+\n\n\n(REST) Choose the app HTTP-Header locale:",
         "default": "en",
         "enum": [
           "en",
           "it"
-        ],
-        "x-prompt": "(REST) Choose the app locale:"
+        ]
       },
       "authIdField": {
         "description": "Define the userId field name for authentication request",
@@ -39,11 +33,18 @@
         "x-prompt": "(REST) Specify the password field name for authentication request:"
       },
       "devServerUrl": {
-        "description": "Define the dev server url",
+        "description": "Define the main dev rest-server url",
         "type": "string",
-        "x-prompt": "(REST) Specify the dev server url (e.g. https://domain.com:8080/api):"
+        "default": "https://dev-server.com/api",
+        "x-prompt": "(REST) Specify the dev rest-server url:"
+      },
+      "wpServerUrl": {
+        "description": "Define the wp dev rest-server url",
+        "type": "string",
+        "default": "https://wp-server.com/api",
+        "x-prompt": "(REST) Specify the Wordpress rest-server url:"
       }
     },
-    "required": [],
+    "required": ["devServerUrl"],
     "additionalProperties": false
   }

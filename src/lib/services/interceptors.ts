@@ -13,8 +13,8 @@ import { ICoreConfig } from '../shared/interfaces/config.interface';
 })
 export class GenericInterceptors implements HttpInterceptor {
 
-  token: string;
-  reqQueue: { req: HttpRequest<any>, next: HttpHandler }[] = [];
+  public token: string;
+  public reqQueue: { req: HttpRequest<any>, next: HttpHandler }[] = [];
 
   constructor(
     private authWordpressService: AuthWordpressService,
@@ -32,8 +32,12 @@ export class GenericInterceptors implements HttpInterceptor {
     return lang;
   }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (req.url[0] !== '/') {
+      throw new Error('Path non valido. Anteporre "/"');
+    }
     const locale = this.getUsersLocale(this.config.locale) || 'en';
+    const pathPrefix = req.url.split('/')[1];
     let newReq: any;
     let headers: HttpHeaders;
 
@@ -58,20 +62,20 @@ export class GenericInterceptors implements HttpInterceptor {
     }
 
     // HOST
-    if (req.url.indexOf('/mock') !== -1) {
+    if (pathPrefix === 'mock') {
       newReq = req.clone({
         url: this.config.restApi.mockRestEndpoint + req.url,
         headers
       });
-    } else if (req.url.indexOf('/wp-api') !== -1) {
-      headers = headers.delete('locale');
-      newReq = req.clone({
-        url: this.config.restApi.wordpressRestEndpoint + req.url.replace('/wp-api', ''),
-        headers
-      });
     } else {
+      // looks for endpoint in module settings
+      const endpoint = this.config.restApi.restEndpointList.find((value) => value.prefix === pathPrefix);
+
+      if (!endpoint) {
+        throw new Error('Endpoint non trovato. Inserirlo nelle configurazioni del modulo');
+      }
       newReq = req.clone({
-        url: this.config.restApi.restEndpoint + req.url,
+        url: endpoint + req.url,
         headers
       });
     }

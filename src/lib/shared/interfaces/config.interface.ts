@@ -4,13 +4,23 @@ export interface ICoreConfig {
         pwdField: string;
     };
     restApi: {
-        authRestEndpoint?: string;
-        autoLoginRestEndpoint?: string;
-        logoutRestEndpoint?: string;
-        restEndpoint: string;
+        // authRestPath?: string;
+        // autoLoginRestPath?: string;
+        // logoutRestEndpoint?: string;
+        restEndpointList: IEndpointUrl[];
+        restPathList: IPathUrl[];
         mockRestEndpoint?: string;
-        passwordRestoreEndpoint?: string;
-        wordpressRestEndpoint?: string;
+        // passwordRestorePath?: string;
+        // wordpressRestPath?: string;
     };
     locale: string;
+}
+
+export interface IEndpointUrl {
+    prefix: string;
+    url: string;
+}
+
+export interface IPathUrl extends IEndpointUrl {
+    type: string;
 }

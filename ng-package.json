@@ -11,7 +11,8 @@
       "@ionic-native/facebook/ngx": "@ionic-native/facebook/ngx",
       "@ionic-native/facebook/ngx/index": "@ionic-native/facebook/ngx/index",
       "@ionic-native/device/ngx": "@ionic-native/device/ngx",
-      "@ionic-native/device/ngx/index": "@ionic-native/device/ngx/index"
+      "@ionic-native/device/ngx/index": "@ionic-native/device/ngx/index",
+      "@ngx-translate/http-loader": "@ngx-translate/http-loader"
     }
   },
   "whitelistedNonPeerDependencies": [

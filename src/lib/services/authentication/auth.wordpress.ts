@@ -1,8 +1,12 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Inject} from '@angular/core';
 import {catchError, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Storage} from '@ionic/storage';
+
+import { CoreConfigService } from '../core-config.service';
+import { ICoreConfig } from '../../shared/interfaces/config.interface';
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +19,17 @@ export class AuthWordpressService {
   constructor(
     private httpClient: HttpClient,
     private storage: Storage,
+    @Inject(CoreConfigService) private config: ICoreConfig,
   ) {
   }
 
-  login(email: string, password: string) {
+  public login(email: string, password: string): Observable<any> {
+    const authPath = this.config.restApi.restPathList
+    .filter(value => value.prefix === 'wp-api')
+    .find(value => value.type === 'auth');
+
     this.token = undefined;
-    return this.httpClient.post('/wp-api/jwt-auth/v1/token',
+    return this.httpClient.post(`/${authPath.prefix}/${authPath.url}`,
       {
         email,
         password
