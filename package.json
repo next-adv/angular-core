@@ -5,9 +5,9 @@
   "scripts": {
     "build": "../../node_modules/.bin/tsc -p tsconfig.schematics.json",
     "copy:schemas": "for i in schematics/*/schema.json; do mkdir -p `dirname ../../dist/angular-core/$i`; done && cp ./schematics/ng-add/schema.json ../../dist/angular-core/schematics/ng-add/",
-    "copy:files": "mkdir -p schematics/*/files/** ../../dist/angular-core/ && cp -p schematics/*/files/** ../../dist/angular-core/",
+    "copy:files": "for i in schematics/ng-add/files/**; do mkdir -p `dirname ../../dist/angular-core/$i`; done && cp -R schematics/ng-add/files ../../dist/angular-core/schematics/ng-add/",
     "copy:collection": "cp schematics/collection.json ../../dist/angular-core/schematics/collection.json",
-    "postbuild": "npm run copy:schemas && npm run copy:collection"
+    "postbuild": "npm run copy:schemas && npm run copy:files && npm run copy:collection"
   },
   "private": false,
   "dependencies": {
