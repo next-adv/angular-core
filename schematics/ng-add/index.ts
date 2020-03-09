@@ -1,4 +1,4 @@
-import { Rule, Tree, apply, url, move, Source } from '@angular-devkit/schematics';
+import { Rule, Tree, apply, url, move, Source, chain, mergeWith } from '@angular-devkit/schematics';
 import { getProjectFromWorkspace } from 'schematics-utilities';
 import { getWorkspace } from '@schematics/angular/utility/config';
 
@@ -103,9 +103,11 @@ export function ngAdd(options: ISchema): Rule {
     generateEnvironmentValues(host, project.sourceRoot || 'src', options);
     addModuleImport(host, path);
     addModuleEntry(host, path);
-    addTplFiles(project.sourceRoot || '');
+    const templateSource = addTplFiles(project.sourceRoot || '');
 
     // return updated tree
-    return host;
+    return chain([
+      mergeWith(templateSource)
+    ]);
   };
 }
