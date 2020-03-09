@@ -3,7 +3,9 @@ import {CommonModule} from '@angular/common';
 import {ReactiveFormsModule} from '@angular/forms';
 import {IonicStorageModule} from '@ionic/storage';
 import {RouterModule} from '@angular/router';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { GenericInterceptors } from './services/interceptors';
 import { CoreConfigService } from './services/core-config.service';
@@ -16,7 +18,14 @@ import { ICoreConfig } from './shared/interfaces/config.interface';
         ReactiveFormsModule,
         RouterModule,
         HttpClientModule,
-        IonicStorageModule.forRoot()
+        IonicStorageModule.forRoot(),
+        TranslateModule.forChild({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
     ],
     declarations: [
     ],
@@ -43,3 +52,7 @@ export class AngularCoreModule {
         };
     }
 }
+
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+    return new TranslateHttpLoader(http);
+  }

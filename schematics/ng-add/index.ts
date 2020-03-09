@@ -1,8 +1,16 @@
-import { Rule, Tree } from '@angular-devkit/schematics';
+import { Rule, Tree, apply, url, move, Source } from '@angular-devkit/schematics';
 import { getProjectFromWorkspace } from 'schematics-utilities';
 import { getWorkspace } from '@schematics/angular/utility/config';
 
 import ISchema, {IEnv} from './schema.interface';
+
+
+function addTplFiles(path: string): Source {
+  // copy templates and write routes
+  return apply(url('./files'), [
+    move(path as string)
+  ]);
+}
 
 
 function generateEnvironmentValues(host: Tree, sourceRoot: string, options: ISchema): void {
@@ -14,7 +22,7 @@ function generateEnvironmentValues(host: Tree, sourceRoot: string, options: ISch
     authPwdField: options.authPwdField,
     devServerUrl: options.devServerUrl,
   };
-  const envDummy = JSON.stringify(envObj, null, 2).replace(/\"([^(\")"]+)\":/g,"$1:").replace(/"/g, "'");//beautify
+  const envDummy = JSON.stringify(envObj, null, 2).replace(/\"([^(\")"]+)\":/g, "$1:").replace(/"/g, "'");//beautify
 
   if (devContent && prodContent) {
     const strDevContent = devContent.toString();
@@ -92,6 +100,7 @@ export function ngAdd(options: ISchema): Rule {
     generateEnvironmentValues(host, project.sourceRoot || 'src', options);
     addModuleImport(host, path);
     addModuleEntry(host, path);
+    addTplFiles(project.sourceRoot);
 
     // return updated tree
     return host;
