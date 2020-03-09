@@ -48,6 +48,8 @@ function addModuleImport(host: Tree, path: string): void {
     const strContent = content.toString();
     const appendIndex = strContent.indexOf('@NgModule({');
     const content2Append = `// @next-adv/angular-core auto-generated code
+import { TranslateModule } from '@ngx-translate/core';
+
 import { environment } from '../environments/environment';
 import { AngularCoreModule } from '@next-adv/angular-core';
 // @next-adv/angular-core auto-generated code end\n\n\n`;
@@ -77,6 +79,7 @@ function addModuleEntry(host: Tree, path: string): void {
         locale: environment.locale
       }
     ),
+    TranslateModule.forRoot(),
     // @next-adv/angular-core auto-generated code end\n`;
     const updatedContent = strContent.slice(0, appendIndex) + content2Append + strContent.slice(appendIndex);
     host.overwrite(path + '/app.module.ts', updatedContent);
