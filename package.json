@@ -1,6 +1,6 @@
 {
   "name": "@next-adv/angular-core",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "author": "Riccardo Coco, Giuseppe Matrella",
   "scripts": {
     "build": "../../node_modules/.bin/tsc -p tsconfig.schematics.json",
