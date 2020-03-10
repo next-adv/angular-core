@@ -29,7 +29,7 @@ export class AuthWordpressService {
     .find(value => value.type === 'auth');
 
     this.token = undefined;
-    return this.httpClient.post(`/${authPath.prefix}/${authPath.url}`,
+    return this.httpClient.post(`/${authPath.prefix}${authPath.url}`,
       {
         email,
         password

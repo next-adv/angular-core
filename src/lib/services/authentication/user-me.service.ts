@@ -24,6 +24,6 @@ export class UserMeService {
             ...options
         };
 
-        return this.httpClient.post(`/${userMePath.prefix}/${userMePath.url}`, body, opt).toPromise();
+        return this.httpClient.post(`/${userMePath.prefix}${userMePath.url}`, body, opt).toPromise();
     }
 }

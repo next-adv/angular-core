@@ -42,7 +42,7 @@ export class AuthPlainService {
         .find(value => value.type === 'userMe');
 
         this.token = token;
-        return await this.httpClient.get(`/${userMePath.prefix}/${userMePath.url}`, {
+        return await this.httpClient.get(`/${userMePath.prefix}${userMePath.url}`, {
           headers: {
             authorization: 'Bearer ' + token
           }
@@ -63,7 +63,7 @@ export class AuthPlainService {
 
     payload[this.config.auth ? this.config.auth.idField : 'username'] = id;
     payload[this.config.auth ? this.config.auth.pwdField : 'password'] = password;
-    return this.httpClient.post(`/${authPath.prefix}/${authPath.url}`, payload)
+    return this.httpClient.post(`/${authPath.prefix}${authPath.url}`, payload)
     .pipe(
       tap((data: any) => {
         this.user = data.user;
