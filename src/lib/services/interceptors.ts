@@ -34,7 +34,6 @@ export class GenericInterceptors implements HttpInterceptor {
 
   public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const locale = this.getUsersLocale(this.config.locale) || 'en';
-    const pathPrefix = req.url.split('/')[1];
     let newReq: any;
     let headers: HttpHeaders;
 
@@ -62,6 +61,7 @@ export class GenericInterceptors implements HttpInterceptor {
     if (req.url[0] !== '/') {
       throw new Error('Path non valido. Anteporre "/"');
     }
+    const pathPrefix = req.url.split('/')[1];
     if (pathPrefix === 'mock') {
       newReq = req.clone({
         url: this.config.restApi.mockRestEndpoint + req.url,
@@ -75,7 +75,7 @@ export class GenericInterceptors implements HttpInterceptor {
         throw new Error('Endpoint non trovato. Inserirlo nelle configurazioni del modulo');
       }
       newReq = req.clone({
-        url: endpoint.url + req.url,
+        url: endpoint.url + req.url.replace('/' + pathPrefix, ''),
         headers
       });
     }
