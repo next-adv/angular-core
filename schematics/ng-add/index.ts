@@ -1,6 +1,7 @@
 import { Rule, Tree, apply, url, move, Source, chain, mergeWith } from '@angular-devkit/schematics';
 import { getProjectFromWorkspace } from 'schematics-utilities';
 import { getWorkspace } from '@schematics/angular/utility/config';
+import { exec } from 'child_process';
 
 import ISchema, {IEnv} from './schema.interface';
 
@@ -146,6 +147,7 @@ function addModuleEntry(host: Tree, path: string): void {
 }
 
 export function ngAdd(options: ISchema): Rule {
+  exec('npm i --package-lock-only');
   return (host: Tree/*, context: SchematicContext*/) => {
     // get the workspace config of the consuming project
     // i.e. angular.json file
