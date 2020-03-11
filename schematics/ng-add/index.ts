@@ -12,6 +12,23 @@ function addTplFiles(path: string): Source {
   ]);
 }
 
+function addMoreFunctions(host: Tree, path: string): void {
+  const content: Buffer | null = host.read(path + '/app.module.ts');
+
+  if (content) {
+    const strContent = content.toString();
+    const appendIndex = strContent.indexOf('@NgModule({');
+    const content2Append = `
+// @next-adv/angular-core auto-generated code
+function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+// @next-adv/angular-core auto-generated code end\n\n\n`;
+    const updatedContent = strContent.slice(0, appendIndex) + content2Append + strContent.slice(appendIndex);
+
+    host.overwrite(path + '/app.module.ts', updatedContent);
+  }
+}
 
 function generateEnvironmentValues(host: Tree, sourceRoot: string, options: ISchema): void {
   const devContent: Buffer | null = host.read(sourceRoot + '/environments/environment.ts');
@@ -82,8 +99,9 @@ function addModuleImport(host: Tree, path: string): void {
     const strContent = content.toString();
     const appendIndex = strContent.indexOf('@NgModule({');
     const content2Append = `// @next-adv/angular-core auto-generated code
-import { TranslateModule } from '@ngx-translate/core';
-
+import { HttpClient } from '@angular/common/http';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { environment } from '../environments/environment';
 import { AngularCoreModule } from '@next-adv/angular-core';
 // @next-adv/angular-core auto-generated code end\n\n\n`;
@@ -114,7 +132,13 @@ function addModuleEntry(host: Tree, path: string): void {
         locale: environment.locale
       }
     ),
-    TranslateModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: (createTranslateLoader),
+          deps: [HttpClient]
+      }
+    }),
     // @next-adv/angular-core auto-generated code end\n`;
     const updatedContent = strContent.slice(0, appendIndex) + content2Append + strContent.slice(appendIndex);
     host.overwrite(path + '/app.module.ts', updatedContent);
@@ -137,6 +161,7 @@ export function ngAdd(options: ISchema): Rule {
 
     generateEnvironmentValues(host, project.sourceRoot || 'src', options);
     addModuleImport(host, path);
+    addMoreFunctions(host, path);
     addModuleEntry(host, path);
     const templateSource = addTplFiles(project.sourceRoot || '');
 
