@@ -18,9 +18,9 @@ function generateEnvironmentValues(host: Tree, sourceRoot: string, options: ISch
   const prodContent: Buffer | null = host.read(sourceRoot + '/environments/environment.prod.ts');
   const envObj: IEnv = {
     locale: options.locale,
-    authIdField: options.authIdField,
-    authPwdField: options.authPwdField,
-    restEndpointList: [
+    'ngc:authIdField': options.authIdField,
+    'ngc:authPwdField': options.authPwdField,
+    'ngc:restEndpointList': [
       {
         prefix: 'main-api',
         url: options.devServerUrl
@@ -30,7 +30,7 @@ function generateEnvironmentValues(host: Tree, sourceRoot: string, options: ISch
         url: options.wpServerUrl
       },
     ],
-    restPathList: [
+    'ngc:restPathList': [
       {
         prefix: 'main-api',
         type: 'auth',
@@ -53,7 +53,10 @@ function generateEnvironmentValues(host: Tree, sourceRoot: string, options: ISch
       },
     ],
   };
-  const envDummy = JSON.stringify(envObj, null, 2).replace(/\"([^(\")"]+)\":/g, "$1:").replace(/"/g, "'"); // beautify
+  const envDummy = JSON.stringify(envObj, null, 2)
+  .replace(/\"([^(\")"]+)\":/g, `$1:`) // strips " (doublequotes)
+  .replace(/([a-zA-Z0-9]+:[a-zA-Z0-9]+):/g, `'$1':`) // wraps properties with : with '
+  .replace(/"/g, `'`); // not sure about its usefullness, but it's free
 
   if (devContent && prodContent) {
     const strDevContent = devContent.toString();
@@ -101,12 +104,12 @@ function addModuleEntry(host: Tree, path: string): void {
     AngularCoreModule.setConfig(
       {
         auth: {
-          idField: environment.authIdField,
-          pwdField: environment.authPwdField,
+          idField: environment['ngc:authIdField'],
+          pwdField: environment['ngc:authPwdField'],
         },
         restApi: {
-          restPathList: environment.restPathList,
-          restEndpointList: environment.restEndpointList,
+          restPathList: environment['ngc:restPathList'],
+          restEndpointList: environment['ngc:restEndpointList'],
         },
         locale: environment.locale
       }
