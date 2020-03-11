@@ -80,7 +80,7 @@ In order to develop schematics:
 If you want to do all of this in only 2 commands:
 
 1. Version using `npm run version:ang-lib patch|minor|major`
-2. Run `npm run build-publish:ang-lib-schem`
+2. Run `npm run build-publish:ang-pkg`
 
 ## Running unit tests
 
