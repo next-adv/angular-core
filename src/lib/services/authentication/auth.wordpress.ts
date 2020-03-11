@@ -23,7 +23,7 @@ export class AuthWordpressService {
   ) {
   }
 
-  public login(email: string, password: string): Observable<any> {
+  public login(email: string, password: string): Promise<any> {
     const authPath = this.config.restApi.restPathList
     .filter(value => value.prefix === 'wp-api')
     .find(value => value.type === 'auth');
@@ -44,6 +44,6 @@ export class AuthWordpressService {
           this.storage.set('token', this.token);
           return data;
         })
-      );
+      ).toPromise();
   }
 }
