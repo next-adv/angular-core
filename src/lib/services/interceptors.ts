@@ -92,7 +92,7 @@ export class GenericInterceptors implements HttpInterceptor {
       );
   }
 
-  shouldBeIntercepted(event: HttpResponse<any>) {
+  private shouldBeIntercepted(event: HttpResponse<any>): boolean {
     return event.url.indexOf('/mock') === -1;
   }
 }
