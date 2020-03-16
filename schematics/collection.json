@@ -5,6 +5,11 @@
         "description": "Add my library to the project.",
         "factory": "./ng-add/index#ngAdd",
         "schema": "./ng-add/schema.json"
+      },
+      "mock-server": {
+        "description": "Generate REST mock-server",
+        "factory": "./mock-server/index#mockServer",
+        "schema": "./mock-server/schema.json"
       }
     }
   }

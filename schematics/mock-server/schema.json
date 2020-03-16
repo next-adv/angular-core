@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "id": "angular-core-schematic-mock-server",
+    "title": "Angular-Core mock-server schematic",
+    "type": "object",
+    "properties": {
+      "project": {
+        "type": "string",
+        "description": "To install mock server for develope purpouse",
+        "$default": {
+          "$source": "projectName"
+        }
+      },
+      "port": {
+        "description": "Server port",
+        "type": "number",
+        "default": 3000
+       }
+    },
+    "required": ["port"],
+    "additionalProperties": false
+  }
