@@ -11,11 +11,15 @@ function mockServerPkgInstall(): void {
 function addTplFiles(path: string, options: ISchema): Source {
   return apply(url('./files'), [
     template({
+      mockPath: options.mockPath,
       port: options.port,
     }),
     move(path as string)
   ]);
 }
+
+// TODO implementare options:
+// 1. mock path
 
 export function mockServer(options: ISchema): Rule {
   exec('npm i --package-lock-only');

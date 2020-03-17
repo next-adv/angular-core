@@ -7,7 +7,7 @@ mockServer({
   title: 'Api mock server',
   version: 2,
   urlBase: 'http://localhost',
-  urlPath: '/mock',
+  urlPath: '<%= mockPath %>',
   port: <%= port %>,
   uiPath: '/',
   headers: {

@@ -11,12 +11,17 @@
           "$source": "projectName"
         }
       },
+      "mockPath": {
+        "description": "Mock path",
+        "type": "string",
+        "default": "/mock"
+      },
       "port": {
         "description": "Server port",
         "type": "number",
         "default": 3000
-       }
+      }
     },
-    "required": ["port"],
+    "required": [],
     "additionalProperties": false
   }
