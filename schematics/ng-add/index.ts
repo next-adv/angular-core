@@ -89,6 +89,7 @@ function generateEnvironmentValues(host: Tree, sourceRoot: string, options: ISch
       '$1,\n// @next-adv/angular-core auto-generated code' + envStr + '// @next-adv/angular-core auto-generated code end'
       );
     host.overwrite(sourceRoot + '/environments/environment.ts', updatedDevContent);
+    host.create(sourceRoot + '/environments/environment.stage.ts', updatedDevContent);
     host.overwrite(sourceRoot + '/environments/environment.prod.ts', updatedProdContent);
   }
 }
