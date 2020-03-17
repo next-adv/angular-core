@@ -67,6 +67,18 @@ All settings are configurable through the installation wizard too.
 
 For any further infos please consult the **ICoreConfig** interface
 
+### Run node-mock-server
+
+Since v5.2.0 the node-mock-server is available:
+
+1. Run `ng g @next-adv/angular-core:mock-server`
+2. Optionally add `--port` and `--mockPath` parmas to it
+3. Run `npm run mock-server` to run it
+4. Open browser to *http://localhost:port/* to see the server UI
+
+For documentation please visit [npm repo](https://www.npmjs.com/package/node-mock-server)
+
+
 ## Schematics
 
 In order to develop schematics:
