@@ -148,7 +148,8 @@ function addModuleEntry(host: Tree, path: string): void {
           deps: [HttpClient]
       }
     }),
-    // @next-adv/angular-core auto-generated code end\n`;
+    // @next-adv/angular-core auto-generated code end
+    // [@next-adv/ionic-core]\n`; // <- ionic-core injection token! DO NOT TOUCH IT!
     const updatedContent = strContent.slice(0, appendIndex) + content2Append + strContent.slice(appendIndex);
     host.overwrite(path + '/app.module.ts', updatedContent);
   }
