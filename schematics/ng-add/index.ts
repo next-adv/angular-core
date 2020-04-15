@@ -1,4 +1,4 @@
-import { Rule, Tree, apply, url, move, Source, chain, mergeWith } from '@angular-devkit/schematics';
+import { Rule, Tree, apply, url, move, Source, chain, mergeWith, forEach, FileEntry } from '@angular-devkit/schematics';
 import { getProjectFromWorkspace } from 'schematics-utilities';
 import { getWorkspace } from '@schematics/angular/utility/config';
 import { exec } from 'child_process';
@@ -6,10 +6,17 @@ import { exec } from 'child_process';
 import ISchema, {IEnv} from './schema.interface';
 
 
-function addTplFiles(path: string): Source {
+function addTplFiles(path: string, host: Tree): Source {
   // copy templates and write routes
   return apply(url('./files'), [
-    move(path as string)
+    forEach((fileEntry: FileEntry) => {
+      if (host.exists(path + fileEntry.path)) {
+        console.log(fileEntry.path + ' already exists, but it\'s ok');
+        return null;
+      }
+      return fileEntry;
+    }),
+    move(path)
   ]);
 }
 
@@ -89,7 +96,7 @@ function generateEnvironmentValues(host: Tree, sourceRoot: string, options: ISch
       '$1,\n// @next-adv/angular-core auto-generated code' + envStr + '// @next-adv/angular-core auto-generated code end'
       );
     host.overwrite(sourceRoot + '/environments/environment.ts', updatedDevContent);
-    host.create(sourceRoot + '/environments/environment.stage.ts', updatedDevContent);
+    host.overwrite(sourceRoot + '/environments/environment.stage.ts', updatedDevContent);
     host.overwrite(sourceRoot + '/environments/environment.prod.ts', updatedProdContent);
   }
 }
@@ -166,7 +173,7 @@ export function ngAdd(options: ISchema): Rule {
     addModuleImport(host, path);
     addMoreFunctions(host, path);
     addModuleEntry(host, path);
-    const templateSource = addTplFiles(project.sourceRoot || '');
+    const templateSource = addTplFiles(project.sourceRoot || '', host);
 
     // return updated tree
     return chain([
