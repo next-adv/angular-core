@@ -59,22 +59,22 @@ function generateEnvironmentValues(host: Tree, sourceRoot: string, options: ISch
       {
         prefix: 'main-api',
         type: 'auth',
-        url: '/auth-endpoint',
+        url: 'auth-endpoint',
       },
       {
         prefix: 'main-api',
         type: 'userMe',
-        url: '/user-me-endpoint',
+        url: 'user-me-endpoint',
       },
       {
         prefix: 'main-api',
         type: 'forgotPwd',
-        url: '/forgot-pwd-endpoint',
+        url: 'forgot-pwd-endpoint',
       },
       {
         prefix: 'wp-api',
         type: 'auth',
-        url: '/auth-endpoint',
+        url: 'auth-endpoint',
       },
     ],
   };
