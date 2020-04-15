@@ -8,9 +8,7 @@ import {AuthPlainService} from './authentication/auth.plain';
 import { ICoreConfig } from '../shared/interfaces/config.interface';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class GenericInterceptors implements HttpInterceptor {
 
   public token: string;
