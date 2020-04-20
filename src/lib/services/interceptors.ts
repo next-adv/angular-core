@@ -2,6 +2,7 @@ import {Inject, Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+
 import {CoreConfigService} from './core-config.service';
 import {AuthWordpressService} from './authentication/auth.wordpress';
 import {AuthPlainService} from './authentication/auth.plain';
@@ -20,23 +21,11 @@ export class GenericInterceptors implements HttpInterceptor {
     @Inject(CoreConfigService) private config: ICoreConfig,
   ) {}
 
-  private getUsersLocale(defaultValue: string): string {
-    if (typeof window === 'undefined' || typeof window.navigator === 'undefined') {
-      return defaultValue;
-    }
-    const wn = window.navigator as any;
-    let lang = wn.languages ? wn.languages[0] : defaultValue;
-    lang = lang || wn.language || wn.browserLanguage || wn.userLanguage;
-    return lang;
-  }
-
   public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const locale = this.getUsersLocale(this.config.locale) || 'en';
     let newReq: any;
     let headers: HttpHeaders;
 
-    this.token = this.authWordpressService.token || this.authPlainService.token;
-
+    this.token = this.authWordpressService.token || this.authPlainService.token; 
     // I18N
     if (req.url.indexOf('i18n') !== -1) {
       // TO MANAGE IT.json AND EN.json
@@ -48,13 +37,9 @@ export class GenericInterceptors implements HttpInterceptor {
     // HEADERS
     if (this.token) {
       headers = new HttpHeaders({
-        Authorization: 'Bearer ' + this.token,
-        locale
+        Authorization: 'Bearer ' + this.token
       });
-    } else {
-      headers = req.headers.append('locale', locale);
     }
-
     // HOST
     if (req.url[0] !== '/') {
       throw new Error('Path non valido. Anteporre "/"');
