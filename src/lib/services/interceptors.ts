@@ -12,6 +12,11 @@ import { ICoreConfig } from '../shared/interfaces/config.interface';
 @Injectable()
 export class GenericInterceptors implements HttpInterceptor {
 
+  public static CUSTOM_PARAMS_NAME = 'CUSTOM_PARAMS';
+  public static CUSTOM_PARAMS_VALUES = {
+    NO_HEADERS: 'NO_HEADERS'
+  };
+
   public token: string;
   public reqQueue: { req: HttpRequest<any>, next: HttpHandler }[] = [];
 
@@ -25,7 +30,7 @@ export class GenericInterceptors implements HttpInterceptor {
     let newReq: any;
     let headers: HttpHeaders;
 
-    this.token = this.authWordpressService.token || this.authPlainService.token; 
+    this.token = this.authWordpressService.token || this.authPlainService.token;
     // I18N
     if (req.url.indexOf('i18n') !== -1) {
       // TO MANAGE IT.json AND EN.json
@@ -35,7 +40,7 @@ export class GenericInterceptors implements HttpInterceptor {
       return next.handle(newReq2);
     }
     // HEADERS
-    if (this.token) {
+    if (req.params.get(GenericInterceptors.CUSTOM_PARAMS_NAME) !== GenericInterceptors.CUSTOM_PARAMS_VALUES.NO_HEADERS &&  this.token) {
       headers = new HttpHeaders({
         Authorization: 'Bearer ' + this.token
       });
