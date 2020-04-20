@@ -67,7 +67,7 @@
     "@ngx-translate/http-loader": "~4.0.0",
     "zone.js": "~0.9.1",
     "@ionic/storage": "^2.2.0",
-    "rxjs": "^6.5.4"
+    "rxjs": "~6.5.4"
   },
   "schematics": "./schematics/collection.json"
 }
