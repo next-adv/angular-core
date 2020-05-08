@@ -6,6 +6,8 @@
 
 export { AngularCoreModule } from './lib/angular-core.module';
 
+export { NavService } from './lib/services/nav.service';
+
 // AUTH
 export { AuthWordpressService } from './lib/services/authentication/auth.wordpress';
 export { AuthPlainService } from './lib/services/authentication/auth.plain';
