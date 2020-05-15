@@ -54,6 +54,10 @@ function generateEnvironmentValues(host: Tree, sourceRoot: string, options: ISch
         prefix: 'wp-api',
         url: options.wpServerUrl
       },
+      {
+        prefix: 'internal',
+        url: window.location.origin
+      },
     ],
     'ngc:restPathList': [
       {
