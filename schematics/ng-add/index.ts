@@ -56,7 +56,7 @@ function generateEnvironmentValues(host: Tree, sourceRoot: string, options: ISch
       },
       {
         prefix: 'internal',
-        url: window.location.origin
+        url: 'window.location.origin'
       },
     ],
     'ngc:restPathList': [
@@ -83,6 +83,7 @@ function generateEnvironmentValues(host: Tree, sourceRoot: string, options: ISch
     ],
   };
   const envDummy = JSON.stringify(envObj, null, 2)
+  .replace('"window.location.origin"', 'window.location.origin')
   .replace(/\"([^(\")"]+)\":/g, `$1:`) // strips " (doublequotes)
   .replace(/([a-zA-Z0-9]+:[a-zA-Z0-9]+):/g, `'$1':`) // wraps properties with : with '
   .replace(/"/g, `'`); // not sure about its usefullness, but it's free
@@ -164,7 +165,7 @@ function addModuleEntry(host: Tree, path: string): void {
         provide: HTTP_INTERCEPTORS,
         useClass: GenericInterceptors,
         multi: true
-    }`;
+    },`;
     const updatedContent = strContent.slice(0, appendIndex) + content2Append + strContent.slice(appendIndex);
     host.overwrite(path + '/app.module.ts', updatedContent);
   }
