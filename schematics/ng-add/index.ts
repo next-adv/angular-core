@@ -104,7 +104,7 @@ function generateEnvironmentValues(host: Tree, sourceRoot: string, options: ISch
       host.overwrite(sourceRoot + '/environments/environment.stage.ts', updatedDevContent);
     } else {
       host.create(sourceRoot + '/environments/environment.stage.ts', updatedDevContent);
-    }    
+    }
     host.overwrite(sourceRoot + '/environments/environment.prod.ts', updatedProdContent);
   }
 }
@@ -120,6 +120,7 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { environment } from '../environments/environment';
+import { GenericInterceptor } from './core/services/interceptor.service';
 import { AngularCoreModule } from '@next-adv/angular-core';
 // @next-adv/angular-core auto-generated code end\n\n\n`;
     const updatedContent = strContent.slice(0, appendIndex) + content2Append + strContent.slice(appendIndex);
@@ -133,8 +134,8 @@ function addModuleEntry(host: Tree, path: string): void {
 
   if (content) {
     const strContent = content.toString();
-    const appendIndex = strContent.indexOf('imports: [') + ('imports: [').length;
-    const content2Append = `
+    let appendIndex = strContent.indexOf('imports: [') + ('imports: [').length;
+    let content2Append = `
     // @next-adv/angular-core auto-generated code
     AngularCoreModule.setConfig(
       {
@@ -158,6 +159,12 @@ function addModuleEntry(host: Tree, path: string): void {
     }),
     // @next-adv/angular-core auto-generated code end
     // [@next-adv/ionic-core]\n`; // <- ionic-core injection token! DO NOT TOUCH IT!
+    appendIndex = strContent.indexOf('providers: [') + ('providers: [').length;
+    content2Append = `{
+        provide: HTTP_INTERCEPTORS,
+        useClass: GenericInterceptors,
+        multi: true
+    }`;
     const updatedContent = strContent.slice(0, appendIndex) + content2Append + strContent.slice(appendIndex);
     host.overwrite(path + '/app.module.ts', updatedContent);
   }

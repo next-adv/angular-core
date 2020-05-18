@@ -7,7 +7,6 @@ import {HttpClientModule, HTTP_INTERCEPTORS, HttpClient} from '@angular/common/h
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { GenericInterceptors } from './services/interceptors';
 import { CoreConfigService } from './services/core-config.service';
 import { ICoreConfig } from './shared/interfaces/config.interface';
 
@@ -27,15 +26,8 @@ import { ICoreConfig } from './shared/interfaces/config.interface';
             }
         }),
     ],
-    declarations: [
-    ],
-    providers: [
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: GenericInterceptors,
-            multi: true
-        }
-    ],
+    declarations: [],
+    providers: [],
     exports: []
 })
 export class AngularCoreModule {

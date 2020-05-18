@@ -16,6 +16,4 @@ export { UserMeService } from './lib/services/authentication/user-me.service';
 // HELPER
 export { UIHelperService } from './lib/services/helpers/ui-helper.service';
 
-// INTERCEPTOR
-export { GenericInterceptors } from './lib/services/interceptors';
 
