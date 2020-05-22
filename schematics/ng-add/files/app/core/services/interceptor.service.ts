@@ -6,7 +6,9 @@ import {map} from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class GenericInterceptors implements HttpInterceptor {
 
   public static CUSTOM_PARAMS_NAME = 'CUSTOM_PARAMS';
@@ -39,23 +41,16 @@ export class GenericInterceptors implements HttpInterceptor {
       throw new Error('Path non valido. Anteporre "/"');
     }
     const pathPrefix = req.url.split('/')[1];
-    if (pathPrefix === 'mock') {
-      newReq = req.clone({
-        url: environment.restApi.mockRestEndpoint + req.url,
-        headers
-      });
-    } else {
-      // looks for endpoint in module settings
-      const endpoint = environment.restApi.restEndpointList.find((value) => value.prefix === pathPrefix);
+    // looks for endpoint in module settings
+    const endpoint = environment['ngc:restEndpointList'].find((value) => value.prefix === pathPrefix);
 
-      if (!endpoint) {
-        console.warn('Endpoint non trovato. Inserirlo nelle configurazioni del modulo');
-      }
-      newReq = req.clone({
-        url: endpoint.url + req.url.replace('/' + pathPrefix, ''),
-        headers
-      });
+    if (!endpoint) {
+    console.warn('Endpoint non trovato. Inserirlo nelle configurazioni del modulo');
     }
+    newReq = req.clone({
+    url: endpoint.url + req.url.replace('/' + pathPrefix, ''),
+    headers
+    });
 
     return next.handle(newReq)
       .pipe(

@@ -117,11 +117,11 @@ function addModuleImport(host: Tree, path: string): void {
     const strContent = content.toString();
     const appendIndex = strContent.indexOf('@NgModule({');
     const content2Append = `// @next-adv/angular-core auto-generated code
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { environment } from '../environments/environment';
-import { GenericInterceptor } from './core/services/interceptor.service';
+import { GenericInterceptors } from './core/services/interceptor.service';
 import { AngularCoreModule } from '@next-adv/angular-core';
 // @next-adv/angular-core auto-generated code end\n\n\n`;
     const updatedContent = strContent.slice(0, appendIndex) + content2Append + strContent.slice(appendIndex);
