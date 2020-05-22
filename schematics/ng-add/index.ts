@@ -160,13 +160,14 @@ function addModuleEntry(host: Tree, path: string): void {
     }),
     // @next-adv/angular-core auto-generated code end
     // [@next-adv/ionic-core]\n`; // <- ionic-core injection token! DO NOT TOUCH IT!
-    appendIndex = strContent.indexOf('providers: [') + ('providers: [').length;
+    let updatedContent = strContent.slice(0, appendIndex) + content2Append + strContent.slice(appendIndex);
+    appendIndex = updatedContent.indexOf('providers: [') + ('providers: [').length;
     content2Append = `{
         provide: HTTP_INTERCEPTORS,
         useClass: GenericInterceptors,
         multi: true
     },`;
-    const updatedContent = strContent.slice(0, appendIndex) + content2Append + strContent.slice(appendIndex);
+    updatedContent = updatedContent.slice(0, appendIndex) + content2Append + updatedContent.slice(appendIndex);
     host.overwrite(path + '/app.module.ts', updatedContent);
   }
 }
