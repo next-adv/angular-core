@@ -174,6 +174,7 @@ function addModuleEntry(host: Tree, path: string): void {
 
 export function ngAdd(options: ISchema): Rule {
   exec('npm i --package-lock-only');
+  exec('npm i @ngx-translate/http-loader @ngx-translate/core @ionic/storage');
   return (host: Tree/*, context: SchematicContext*/) => {
     // get the workspace config of the consuming project
     // i.e. angular.json file
