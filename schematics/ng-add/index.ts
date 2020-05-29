@@ -50,19 +50,19 @@ import {TranslateService} from '@ngx-translate/core';
     let updatedContent = strContent.slice(0, appendIndex) + content2Append + strContent.slice(appendIndex);
 
 
-    appendIndex = updatedContent.indexOf('constructor(');
+    appendIndex = updatedContent.indexOf('constructor(') + ('constructor(').length;
     content2Append = `
 // @next-adv/angular-core auto-generated code
-\nprivate translateService: TranslateService,
-// @next-adv/angular-core auto-generated code end\n\n\n`;
+    \nprivate translateService: TranslateService,
+// @next-adv/angular-core auto-generated code end\n`;
     updatedContent = updatedContent.slice(0, appendIndex) + content2Append + updatedContent.slice(appendIndex);
 
 
-    appendIndex = updatedContent.indexOf('this.platform.ready().then(() => {');
+    appendIndex = updatedContent.indexOf('this.platform.ready().then(() => {') + ('this.platform.ready().then(() => {').length;
     content2Append = `
 // @next-adv/angular-core auto-generated code
-\nthis.initTranslate();
-// @next-adv/angular-core auto-generated code end\n\n\n`;
+      \nthis.initTranslate();
+// @next-adv/angular-core auto-generated code end\n`;
     updatedContent = updatedContent.slice(0, appendIndex) + content2Append + updatedContent.slice(appendIndex);
 
 
@@ -93,7 +93,7 @@ initTranslate() {
     updatedContent = updatedContent.slice(0, appendIndex) + content2Append + updatedContent.slice(appendIndex);
 
 
-    host.overwrite(path + '/app.module.ts', updatedContent);
+    host.overwrite(path + '/app.component.ts', updatedContent);
   }
 }
 
