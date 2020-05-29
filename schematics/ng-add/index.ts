@@ -1,10 +1,8 @@
-import { Rule, Tree, apply, url, move, Source, chain, mergeWith, forEach, FileEntry } from '@angular-devkit/schematics';
-import { getProjectFromWorkspace } from 'schematics-utilities';
-import { getWorkspace } from '@schematics/angular/utility/config';
-import { exec } from 'child_process';
-
+import {apply, chain, FileEntry, forEach, mergeWith, move, Rule, Source, Tree, url} from '@angular-devkit/schematics';
+import {getProjectFromWorkspace} from 'schematics-utilities';
+import {getWorkspace} from '@schematics/angular/utility/config';
+import {exec} from 'child_process';
 import ISchema, {IEnv} from './schema.interface';
-
 
 function addTplFiles(path: string, host: Tree): Source {
   // copy templates and write routes
@@ -29,10 +27,71 @@ function addMoreFunctions(host: Tree, path: string): void {
     const content2Append = `
 // @next-adv/angular-core auto-generated code
 function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, '/internal/assets/i18n/', '.json');
 }
 // @next-adv/angular-core auto-generated code end\n\n\n`;
     const updatedContent = strContent.slice(0, appendIndex) + content2Append + strContent.slice(appendIndex);
+
+    host.overwrite(path + '/app.module.ts', updatedContent);
+  }
+}
+
+function addTranslationFunc(host: Tree, path: string): void {
+  const content: Buffer | null = host.read(path + '/app.component.ts');
+
+  if (content) {
+    const strContent = content.toString();
+
+    let appendIndex = 0;
+    let content2Append = `
+// @next-adv/angular-core auto-generated code
+import {TranslateService} from '@ngx-translate/core';
+// @next-adv/angular-core auto-generated code end\n\n\n`;
+    let updatedContent = strContent.slice(0, appendIndex) + content2Append + strContent.slice(appendIndex);
+
+
+    appendIndex = updatedContent.indexOf('constructor(');
+    content2Append = `
+// @next-adv/angular-core auto-generated code
+\nprivate translateService: TranslateService,
+// @next-adv/angular-core auto-generated code end\n\n\n`;
+    updatedContent = updatedContent.slice(0, appendIndex) + content2Append + updatedContent.slice(appendIndex);
+
+
+    appendIndex = updatedContent.indexOf('this.platform.ready().then(() => {');
+    content2Append = `
+// @next-adv/angular-core auto-generated code
+\nthis.initTranslate();
+// @next-adv/angular-core auto-generated code end\n\n\n`;
+    updatedContent = updatedContent.slice(0, appendIndex) + content2Append + updatedContent.slice(appendIndex);
+
+
+    appendIndex = updatedContent.lastIndexOf('}') - 1;
+    content2Append = `
+// @next-adv/angular-core auto-generated code
+initTranslate() {
+        this.translateService.setDefaultLang('en');
+        const browserLang = this.translateService.getBrowserLang();
+
+        if (browserLang) {
+            if (browserLang === 'zh') {
+                const browserCultureLang = this.translateService.getBrowserCultureLang();
+
+                if (browserCultureLang.match(/-CN|CHS|Hans/i)) {
+                    this.translateService.use('zh-cmn-Hans');
+                } else if (browserCultureLang.match(/-TW|CHT|Hant/i)) {
+                    this.translateService.use('zh-cmn-Hant');
+                }
+            } else {
+                this.translateService.use(this.translateService.getBrowserLang());
+            }
+        } else {
+            this.translateService.use('en'); // Set your language here
+        }
+    }
+// @next-adv/angular-core auto-generated code end\n\n\n`;
+    updatedContent = updatedContent.slice(0, appendIndex) + content2Append + updatedContent.slice(appendIndex);
+
 
     host.overwrite(path + '/app.module.ts', updatedContent);
   }
@@ -56,7 +115,7 @@ function generateEnvironmentValues(host: Tree, sourceRoot: string, options: ISch
       },
       {
         prefix: 'internal',
-        url: 'window.location.origin'
+        url: ''
       },
     ],
     'ngc:restPathList': [
@@ -83,10 +142,10 @@ function generateEnvironmentValues(host: Tree, sourceRoot: string, options: ISch
     ],
   };
   const envDummy = JSON.stringify(envObj, null, 2)
-  .replace('"window.location.origin"', 'window.location.origin')
-  .replace(/\"([^(\")"]+)\":/g, `$1:`) // strips " (doublequotes)
-  .replace(/([a-zA-Z0-9]+:[a-zA-Z0-9]+):/g, `'$1':`) // wraps properties with : with '
-  .replace(/"/g, `'`); // not sure about its usefullness, but it's free
+    .replace('"window.location.origin"', 'window.location.origin')
+    .replace(/\"([^(\")"]+)\":/g, `$1:`) // strips " (doublequotes)
+    .replace(/([a-zA-Z0-9]+:[a-zA-Z0-9]+):/g, `'$1':`) // wraps properties with : with '
+    .replace(/"/g, `'`); // not sure about its usefullness, but it's free
 
   if (devContent && prodContent) {
     const strDevContent = devContent.toString();
@@ -95,11 +154,11 @@ function generateEnvironmentValues(host: Tree, sourceRoot: string, options: ISch
     const updatedDevContent = strDevContent.replace(
       /(export const environment = {\n\s*production:\s*false)/,
       '$1,\n// @next-adv/angular-core auto-generated code' + envStr + '// @next-adv/angular-core auto-generated code end'
-      );
+    );
     const updatedProdContent = strProdContent.replace(
       /(export const environment = {\n\s*production:\s*true)/,
       '$1,\n// @next-adv/angular-core auto-generated code' + envStr + '// @next-adv/angular-core auto-generated code end'
-      );
+    );
     host.overwrite(sourceRoot + '/environments/environment.ts', updatedDevContent);
     if (host.exists(sourceRoot + '/environments/environment.stage.ts')) {
       host.overwrite(sourceRoot + '/environments/environment.stage.ts', updatedDevContent);
@@ -191,6 +250,7 @@ export function ngAdd(options: ISchema): Rule {
     generateEnvironmentValues(host, project.sourceRoot || 'src', options);
     addModuleImport(host, path);
     addMoreFunctions(host, path);
+    addTranslationFunc(host, path);
     addModuleEntry(host, path);
     const templateSource = addTplFiles(project.sourceRoot || '', host);
 
